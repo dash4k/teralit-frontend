@@ -1,0 +1,108 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&display=swap");
+@import "tailwindcss";
+
+@theme {
+  /* Colors */
+  --color-on-tertiary-fixed-variant: #812800;
+  --color-on-tertiary: #ffffff;
+  --color-on-surface-variant: #434654;
+  --color-on-secondary-fixed-variant: #004f52;
+  --color-inverse-on-surface: #f0f0fb;
+  --color-surface-tint: #0c56d0;
+  --color-on-secondary-fixed: #002021;
+  --color-primary-fixed-dim: #b2c5ff;
+  --color-tertiary-fixed-dim: #ffb59b;
+  --color-on-tertiary-container: #ffc6b2;
+  --color-outline: #737685;
+  --color-on-error-container: #93000a;
+  --color-primary-container: #0052cc;
+  --color-error-container: #ffdad6;
+  --color-surface-bright: #faf8ff;
+  --color-surface: #faf8ff;
+  --color-outline-variant: #c3c6d6;
+  --color-background: #faf8ff;
+  --color-secondary-container: #81f1f5;
+  --color-surface-container-high: #e7e7f2;
+  --color-on-surface: #191b23;
+  --color-on-primary-container: #c4d2ff;
+  --color-surface-container-lowest: #ffffff;
+  --color-on-primary-fixed: #001848;
+  --color-on-primary: #ffffff;
+  --color-tertiary: #7b2600;
+  --color-error: #ba1a1a;
+  --color-on-primary-fixed-variant: #0040a2;
+  --color-inverse-primary: #b2c5ff;
+  --color-tertiary-container: #a33500;
+  --color-on-error: #ffffff;
+  --color-tertiary-fixed: #ffdbcf;
+  --color-surface-dim: #d9d9e4;
+  --color-secondary-fixed-dim: #65d7db;
+  --color-surface-variant: #e1e2ec;
+  --color-on-tertiary-fixed: #380d00;
+  --color-inverse-surface: #2e3038;
+  --color-primary: #003d9b;
+  --color-surface-container-low: #f3f3fd;
+  --color-surface-container-highest: #e1e2ec;
+  --color-primary-fixed: #dae2ff;
+  --color-secondary-fixed: #84f4f8;
+  --color-surface-container: #ededf8;
+  --color-on-secondary: #ffffff;
+  --color-secondary: #00696c;
+  --color-on-background: #191b23;
+  --color-on-secondary-container: #006e71;
+
+  /* Border Radius */
+  --radius-DEFAULT: 0.25rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-full: 9999px;
+
+  /* Spacing */
+  --spacing-md: 16px;
+  --spacing-xs: 4px;
+  --spacing-xl: 32px;
+  --spacing-lg: 24px;
+  --spacing-container-margin: 20px;
+  --spacing-xxl: 48px;
+  --spacing-unit: 4px;
+  --spacing-gutter: 16px;
+  --spacing-sm: 8px;
+
+  /* Font Families */
+  --font-label-md: Inter;
+  --font-body-md: Inter;
+  --font-headline-md: Manrope;
+  --font-body-lg: Inter;
+  --font-label-bold: Inter;
+  --font-display: Manrope;
+  --font-headline-lg: Manrope;
+  --font-body-sm: Inter;
+
+  /* Font Sizes */
+  --text-label-md: 12px;
+  --text-label-md--line-height: 1.2;
+  --text-label-md--font-weight: 500;
+  --text-body-md: 16px;
+  --text-body-md--line-height: 1.6;
+  --text-body-md--font-weight: 400;
+  --text-headline-md: 22px;
+  --text-headline-md--line-height: 1.4;
+  --text-headline-md--font-weight: 600;
+  --text-body-lg: 18px;
+  --text-body-lg--line-height: 1.6;
+  --text-body-lg--font-weight: 400;
+  --text-label-bold: 12px;
+  --text-label-bold--line-height: 1.2;
+  --text-label-bold--letter-spacing: 0.05em;
+  --text-label-bold--font-weight: 600;
+  --text-display: 36px;
+  --text-display--line-height: 1.2;
+  --text-display--letter-spacing: -0.02em;
+  --text-display--font-weight: 700;
+  --text-headline-lg: 28px;
+  --text-headline-lg--line-height: 1.3;
+  --text-headline-lg--font-weight: 600;
+  --text-body-sm: 14px;
+  --text-body-sm--line-height: 1.5;
+  --text-body-sm--font-weight: 400;
+}
