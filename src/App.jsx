@@ -27,7 +27,7 @@ function App() {
 
   return (
     <ThemeContext.Provider value={theme}>
-      <div className="flex flex-col justify-between items-center min-h-screen w-full">
+      <div className="flex flex-col justify-between items-center min-h-screen w-full bg-background dark:bg-on-background">
         <Navigation toggleTheme={toggleTheme} />
         <main>
         </main>
