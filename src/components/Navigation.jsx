@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaBookMedical, FaMoon, FaRegSun } from 'react-icons/fa6';
+import { FaMoon, FaRegSun } from 'react-icons/fa6';
 import ThemeContext from '../contexts/ThemeContext.js';
 
 function Navigation({ toggleTheme }) {
@@ -7,7 +7,7 @@ function Navigation({ toggleTheme }) {
 
   return (
     <header className="w-full top-0 sticky z-50 bg-surface dark:bg-on-background border-b border-outline-variant dark:border-outline shadow-sm">
-      <nav className="flex justify-between items-center h-16 px-container-margin max-w-[1200px] mx-auto">
+      <nav className="flex justify-between items-center h-16 px-container-margin max-w-250 mx-auto">
         <div className="flex items-center gap-md text-on-primary bg-primary-container rounded-sm px-3">
           <span className="text-headline-lg font-display font-bold">T</span>
         </div>
