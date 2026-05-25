@@ -108,3 +108,11 @@
   --text-body-sm--line-height: 1.5;
   --text-body-sm--font-weight: 400;
 }
+
+html, body {
+  background-color: var(--color-surface-container-highest);
+}
+
+html.dark, html.dark body {
+  background-color: var(--color-inverse-surface);
+}
