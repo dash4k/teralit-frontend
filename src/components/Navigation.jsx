@@ -8,7 +8,7 @@ function Navigation({ toggleTheme }) {
   const toggleNav = () => setMobileNav((prev) => !prev);
 
   return (
-    <header className='w-full h-full top-0 sticky z-50 bg-surface dark:bg-on-background border-b border-outline-variant dark:border-outline shadow-sm'>
+    <header className='w-full h-auto top-0 sticky z-50 bg-surface dark:bg-on-background border-b border-outline-variant dark:border-outline shadow-sm'>
       <div className="w-full">
         <nav className="flex justify-between items-center h-16 px-container-margin max-w-250 mx-auto">
           <div className="flex items-center gap-md text-on-primary bg-primary-container rounded-sm px-3">
