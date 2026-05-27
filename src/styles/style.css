@@ -109,6 +109,19 @@
   --text-body-sm--font-weight: 400;
 }
 
+@keyframes ripple {
+  0%   { transform: scale(0); opacity: 0.55; }
+  100% { transform: scale(1); opacity: 0;    }
+}
+
+.animate-ripple {
+  animation: ripple 0.55s linear forwards;
+}
+
+html {
+  scrollbar-width: none;
+}
+
 html, body {
   background-color: var(--color-surface-container-highest);
 }
