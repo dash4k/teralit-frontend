@@ -1,4 +1,5 @@
 import fetchWithToken from './fetchWithToken.js';
+import toast from 'react-hot-toast';
 
 const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 
@@ -13,7 +14,7 @@ export const viewProfile = async () => {
   const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
-    alert(responseJson.message);
+    toast.error(responseJson.message);
     return { error: true, data: null };
   }
 
@@ -32,7 +33,7 @@ export const editProfile = async ({ name }) => {
   const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
-    alert(responseJson.message);
+    toast.error(responseJson.message);
     return { error: true };
   }
 
@@ -50,7 +51,7 @@ export const removeAccount = async () => {
   const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
-    alert(responseJson.message);
+    toast.error(responseJson.message);
     return { error: true };
   }
 
