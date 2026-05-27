@@ -15,8 +15,12 @@ export const register = async ({ email, password, name }) => {
   const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
-    alert(responseJson.message);
-    return { error: true };
+    const message =
+      typeof responseJson.message === 'object'
+        ? responseJson.message.message
+        : responseJson.message;
+
+    throw new Error(message);
   }
 
   return { error: false };
@@ -33,8 +37,7 @@ export const verifyEmail = async (verifyToken) => {
   const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
-    alert(responseJson.message);
-    return { error: true };
+    throw new Error(responseJson.message);
   }
 
   return { error: false };
@@ -52,8 +55,12 @@ export const resendVerification = async ({ email }) => {
   const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
-    alert(responseJson.message);
-    return { error: true };
+    const message =
+      typeof responseJson.message === 'object'
+        ? responseJson.message.message
+        : responseJson.message;
+
+    throw new Error(message);
   }
 
   return { error: false };
@@ -71,8 +78,12 @@ export const login = async ({ email, password }) => {
   const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
-    alert(responseJson.message);
-    return { error: true, data: null };
+    const message =
+      typeof responseJson.message === 'object'
+        ? responseJson.message.message
+        : responseJson.message;
+
+    throw new Error(message);
   }
 
   return { error: false, data: responseJson.data };
@@ -91,8 +102,12 @@ export const refreshToken = async () => {
   const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
-    alert(responseJson.message);
-    return { error: true, data: null };
+    const message =
+      typeof responseJson.message === 'object'
+        ? responseJson.message.message
+        : responseJson.message;
+
+    throw new Error(message);
   }
 
   return { error: false, data: responseJson.data };
@@ -111,8 +126,12 @@ export const logout = async () => {
   const responseJson = await response.json();
 
   if (responseJson.status !== 'success') {
-    alert(responseJson.message);
-    return { error: true };
+    const message =
+      typeof responseJson.message === 'object'
+        ? responseJson.message.message
+        : responseJson.message;
+
+    throw new Error(message);
   }
 
   return { error: false };
