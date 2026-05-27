@@ -3,7 +3,7 @@ const REFRESH_TOKEN_KEY = import.meta.env.VITE_REFRESH_TOKEN_KEY;
 const ACCESS_TOKEN_KEY = import.meta.env.VITE_ACCESS_TOKEN_KEY;
 
 export const getRefreshToken = () => {
-  return localStorage.get(REFRESH_TOKEN_KEY);
+  return localStorage.getItem(REFRESH_TOKEN_KEY);
 };
 
 export const putRefreshToken = (refreshToken) => {
@@ -11,7 +11,7 @@ export const putRefreshToken = (refreshToken) => {
 };
 
 export const getAccessToken = () => {
-  return localStorage.get(ACCESS_TOKEN_KEY);
+  return localStorage.getItem(ACCESS_TOKEN_KEY);
 };
 
 export const putAccessToken = (accessToken) => {
