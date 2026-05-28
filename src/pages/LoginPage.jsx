@@ -39,7 +39,7 @@ const LoginPage = ({ loginSuccess }) => {
       });
       
       setTimeout(() => {
-        navigate('/dashboard')
+        navigate('/new')
       }, 1500);
     } catch (error) {
       if (error.message === 'Please verify your email address first') setResend(true);
@@ -53,13 +53,31 @@ const LoginPage = ({ loginSuccess }) => {
         <form onSubmit={onLogin} className="flex flex-col gap-container-margin px-10 max-w-250 w-full">
           {resend && <div className='flex flex-row justify-start items-center gap-2'>
             <BodyText>Not receiving verification email?</BodyText>
-            <Link to='/resend-verification-email'><Button variant='ghost' color='tertiary' size='sm'>Resend Here</Button></Link>
+            <Link to='/resend-verification-email'>
+              <Button variant='ghost' color='tertiary' size='sm'>
+                  Resend Here
+                </Button>
+              </Link>
           </div>}
           <Heading>Login to Teralit</Heading>
           <BodyText>Please enter your credentials:</BodyText>
           <div className='flex flex-col gap-container-margin'>
-            <Input id='email' type='email' value={email} setValue={setEmail} label='Email' placeholder='user@email.domain' />
-            <Input id='password' type='password' value={password} setValue={setPassword} label='Password' placeholder='••••••••••••••' />
+            <Input 
+              id='email' 
+              type='email' 
+              value={email} 
+              setValue={setEmail} 
+              label='Email' 
+              placeholder='user@email.domain' 
+            />
+            <Input 
+              id='password' 
+              type='password' 
+              value={password} 
+              setValue={setPassword} 
+              label='Password' 
+              placeholder='••••••••••••••' 
+            />
           </div>
           <Button color='primary' type="submit" disabled={logining} loading={logining}>Login</Button>
           <div className='flex flex-row justify-between items-center'>
