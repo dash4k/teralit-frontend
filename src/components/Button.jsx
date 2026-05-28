@@ -96,7 +96,7 @@ function getStyle(variant, colorKey, hovered) {
   case 'ghost':
     return {
       backgroundColor: hovered ? `color-mix(in srgb, ${t.container} 60%, transparent)` : 'transparent',
-      color: t.outline,
+      // color: t.outline,
       border: '2px solid transparent',
       boxShadow: 'none',
     };
