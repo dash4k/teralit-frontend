@@ -89,14 +89,14 @@ export const login = async ({ email, password }) => {
   return { error: false, data: responseJson.data };
 };
 
-export const refreshToken = async () => {
+export const refreshAccessToken = async () => {
   const token = getRefreshToken();
-  const response = await fetchWithToken(`${BASE_URL}/authentications`, {
+  const response = await fetch(`${BASE_URL}/authentications`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ token }),
+    body: JSON.stringify({ refreshToken: token }),
   });
 
   const responseJson = await response.json();
@@ -120,7 +120,7 @@ export const logout = async () => {
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ token }),
+    body: JSON.stringify({ refreshToken: token }),
   });
 
   const responseJson = await response.json();
