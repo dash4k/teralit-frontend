@@ -1,7 +1,8 @@
+import { refreshAccessToken } from './authentication.js';
 import { getAccessToken, putAccessToken, putRefreshToken } from './localStorage.js';
 
 const fetchWithToken = async (url, options = {}) => {
-  const response = fetch(url, {
+  const response = await fetch(url, {
     ...options,
     headers: {
       ...options.headers,
@@ -10,16 +11,16 @@ const fetchWithToken = async (url, options = {}) => {
   });
 
   if (response.status === 401) {
-    const { accessToken, refreshToken } = await refreshToken();
+    const { data: { accessToken, refreshToken } } = await refreshAccessToken();
 
     putRefreshToken(refreshToken);
     putAccessToken(accessToken);
 
-    return fetch(url, {
+    return await fetch(url, {
       ...options,
       headers: {
         ...options.headers,
-        Authorization: `Bearer ${getAccessToken}`,
+        Authorization: `Bearer ${getAccessToken()}`,
       },
     });
   }
