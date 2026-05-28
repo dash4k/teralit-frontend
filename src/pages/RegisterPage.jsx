@@ -53,10 +53,38 @@ const RegisterPage = () => {
           <Heading>Welcome to Teralit!</Heading>
           <BodyText>Please enter your credentials:</BodyText>
           <div className='flex flex-col gap-container-margin'>
-            <Input id='email' type='email' value={email} setValue={setEmail} label='Email' placeholder='user@email.domain' />
-            <Input id='password' type='password' value={password} setValue={setPassword} label='Password' placeholder='••••••••••••••' />
-            <Input id='confirmPassword' type='password' value={confirmPassword} setValue={setConfirmPassword} label='Confirm Password' placeholder='••••••••••••••' />
-            <Input id='name' type='text' value={name} setValue={setName} label='Name' placeholder='Full Name' />
+            <Input 
+              id='email' 
+              type='email' 
+              value={email} 
+              setValue={setEmail} 
+              label='Email' 
+              placeholder='user@email.domain' 
+            />
+            <Input 
+              id='password' 
+              type='password' 
+              value={password} 
+              setValue={setPassword} 
+              label='Password' 
+              placeholder='••••••••••••••' 
+            />
+            <Input 
+              id='confirmPassword' 
+              type='password' 
+              value={confirmPassword} 
+              setValue={setConfirmPassword} 
+              label='Confirm Password' 
+              placeholder='••••••••••••••' 
+            />
+            <Input 
+              id='name' 
+              type='text' 
+              value={name} 
+              setValue={setName} 
+              label='Name' 
+              placeholder='Full Name' 
+            />
           </div>
           <Button color='primary' type="submit" disabled={registering} loading={registering}>Register</Button>
           <div className='flex flex-row justify-between items-center'>
