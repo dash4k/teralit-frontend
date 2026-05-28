@@ -27,11 +27,19 @@ import VerifyEmailPage from './pages/VerifyEmailPage.jsx';
 import ResendVerificationPage from './pages/ResendVerificationPage.jsx';
 
 import ThemeContext from './contexts/ThemeContext.js';
+import toast from 'react-hot-toast';
 
 function App() {
   const [authedUser, setAuthedUser] = React.useState(null);
   const [theme, setTheme] = React.useState(getThemeState() || 'light');
   const [initializing, setInitializing] = React.useState(true);
+  const [settingsVisibility, setSettingsVisibility] = React.useState(false);
+  const [mobileSidebarVisibility, setMobileSidebarVisibility] = React.useState(false);
+
+  const setVisibilityFalse = () => {
+    setSettingsVisibility(false);
+    setMobileSidebarVisibility(false);
+  }
 
   const loginHandler = async ({ refreshToken, accessToken }) => {
     putRefreshToken(refreshToken);
@@ -43,10 +51,10 @@ function App() {
   };
 
   const logoutHandler = async () => {
+    await logout();
     putRefreshToken('');
     putAccessToken('');
     setAuthedUser(null);
-    await logout();
   };
 
   const toggleTheme = () => {
@@ -86,8 +94,22 @@ function App() {
   return (
     <ThemeContext.Provider value={theme}>
       <ToasterWrapper />
-      <div className="flex flex-col justify-between items-center min-h-screen w-full bg-background dark:bg-on-background">
-        <Navigation toggleTheme={toggleTheme} userData={authedUser} logout={logoutHandler} />
+      <div 
+        onClick={setVisibilityFalse} 
+        className="
+          flex flex-col justify-between items-center min-h-screen w-full 
+          bg-background dark:bg-on-background transition-colors
+        "
+      >
+        <Navigation 
+          toggleTheme={toggleTheme} 
+          authedUser={authedUser} 
+          logout={logoutHandler} 
+          settingsVisibility={settingsVisibility} 
+          setSettingsVisibility={setSettingsVisibility} 
+          mobileSidebarVisibility={mobileSidebarVisibility} 
+          setMobileSidebarVisibility={setMobileSidebarVisibility} 
+        />
         <main className='flex-1 w-full'>
           <Routes>
             <Route path='/' element='' />
@@ -97,7 +119,21 @@ function App() {
             <Route path='/verify-email' element={<VerifyEmailPage />} />
             <Route path='/resend-verification-email' element={<ResendVerificationPage />} />
             <Route 
-              path='/dashboard' 
+              path='/new' 
+              element={
+                <ProtectedRoute authedUser={authedUser}>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path='/results/*' 
+              element={
+                <ProtectedRoute authedUser={authedUser}>
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path='/profile' 
               element={
                 <ProtectedRoute authedUser={authedUser}>
                 </ProtectedRoute>
