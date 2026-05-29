@@ -39,17 +39,18 @@ const ResendVerificationPage = () => {
       <Heading>Resend Email Verification</Heading>
       <BodyText>Please enter your email address and press the button to continue.</BodyText>
       <div className="flex flex-row justify-between items-center h-auto">
-        <input 
-          type="email" 
-          value={email} 
-          onChange={setEmail} 
-          className='font-body-lg text-body-lg px-1 py-2 border border-outline'/>
-        <Button 
-          onClick={onSending} 
-          loading={sending} 
-          disabled={sending} 
-          variant='filled' 
-          size='md' 
+        <input
+          type="email"
+          value={email}
+          onChange={setEmail}
+          className='font-body-lg text-body-lg px-1 py-2 border border-outline'
+        />
+        <Button
+          onClick={onSending}
+          loading={sending}
+          disabled={sending}
+          variant='filled'
+          size='md'
           className='rounded-none h-full'
         >
           Send
