@@ -37,7 +37,7 @@ const RegisterPage = () => {
         success: 'Account registered successfully!',
         error: (err) => err?.message ?? 'Error while trying to register your account!',
       });
-      navigate('/check-email');  
+      navigate('/check-email');
     } catch (_error) {
       setRegistering(false);
     }
@@ -46,22 +46,65 @@ const RegisterPage = () => {
   return (
     <section className="w-full h-screen flex items-center justify-center md:justify-between mx-auto">
       <aside className="hidden md:flex w-1/2 h-full bg-secondary">
-        <img src="./authpage.svg" alt="Graphic" className='w-full h-full object-cover'/>
+        <img
+          src="./authpage.svg"
+          alt="Graphic"
+          className='w-full h-full object-cover'
+        />
       </aside>
       <div className="w-full md:w-1/2 flex justify-center items-center">
-        <form onSubmit={onLogin} className="flex flex-col gap-container-margin px-10 max-w-250 w-full">
+        <form
+          onSubmit={onLogin}
+          className="flex flex-col gap-container-margin px-10 max-w-250 w-full"
+        >
           <Heading>Welcome to Teralit!</Heading>
           <BodyText>Please enter your credentials:</BodyText>
           <div className='flex flex-col gap-container-margin'>
-            <Input id='email' type='email' value={email} setValue={setEmail} label='Email' placeholder='user@email.domain' />
-            <Input id='password' type='password' value={password} setValue={setPassword} label='Password' placeholder='••••••••••••••' />
-            <Input id='confirmPassword' type='password' value={confirmPassword} setValue={setConfirmPassword} label='Confirm Password' placeholder='••••••••••••••' />
-            <Input id='name' type='text' value={name} setValue={setName} label='Name' placeholder='Full Name' />
+            <Input
+              id='email'
+              type='email'
+              value={email}
+              setValue={setEmail}
+              label='Email'
+              placeholder='user@email.domain'
+            />
+            <Input
+              id='password'
+              type='password'
+              value={password}
+              setValue={setPassword}
+              label='Password'
+              placeholder='••••••••••••••'
+            />
+            <Input
+              id='confirmPassword'
+              type='password'
+              value={confirmPassword}
+              setValue={setConfirmPassword}
+              label='Confirm Password'
+              placeholder='••••••••••••••'
+            />
+            <Input
+              id='name'
+              type='text'
+              value={name}
+              setValue={setName}
+              label='Name'
+              placeholder='Full Name'
+            />
           </div>
-          <Button color='primary' type="submit" disabled={registering} loading={registering}>Register</Button>
+          <Button
+            color='primary'
+            type="submit"
+            disabled={registering}
+            loading={registering}
+          >Register</Button>
           <div className='flex flex-row justify-between items-center'>
             <BodyText>Already have an account?</BodyText>
-            <Link to='/login'><Button variant='tonal' size='sm'>Login Here</Button></Link>
+            <Link to='/login'><Button
+              variant='tonal'
+              size='sm'
+            >Login Here</Button></Link>
           </div>
         </form>
       </div>

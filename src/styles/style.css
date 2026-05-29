@@ -52,6 +52,8 @@
   --color-secondary: #00696c;
   --color-on-background: #191b23;
   --color-on-secondary-container: #006e71;
+  --color-dark-primary: #b2c5ff;
+  --color-dark-primary-hover:#dae2ff;
 
   /* Border Radius */
   --radius-DEFAULT: 0.25rem;

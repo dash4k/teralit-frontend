@@ -38,7 +38,16 @@ const VerifyEmailPage = () => {
       <Logo />
       <Heading>Email Verification</Heading>
       <BodyText>Press the button below to verify your email!</BodyText>
-      <Button onClick={onVerify} loading={verifying} disabled={verifying} variant='outlined' size='lg' className='rounded-4xl'>Verify</Button>
+      <Button
+        onClick={onVerify}
+        loading={verifying}
+        disabled={verifying}
+        variant='outlined'
+        size='lg'
+        className='rounded-4xl'
+      >
+          Verify
+      </Button>
       {verifying && <BodyText>You will be redirected to login page soon!</BodyText>}
     </section>
   );
