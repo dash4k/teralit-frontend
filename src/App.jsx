@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 
 import PageFooter from './components/PageFooter';
 import Navigation from './components/Navigation';
@@ -25,6 +25,7 @@ import RegisterPage from './pages/RegisterPage.jsx';
 import CheckEmailPage from './pages/CheckEmailPage.jsx';
 import VerifyEmailPage from './pages/VerifyEmailPage.jsx';
 import ResendVerificationPage from './pages/ResendVerificationPage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
 
 import ThemeContext from './contexts/ThemeContext.js';
 import toast from 'react-hot-toast';
@@ -35,6 +36,11 @@ function App() {
   const [initializing, setInitializing] = React.useState(true);
   const [settingsVisibility, setSettingsVisibility] = React.useState(false);
   const [mobileSidebarVisibility, setMobileSidebarVisibility] = React.useState(false);
+  const [collapsed, setCollapsed] = React.useState(false);
+
+  const location = useLocation();
+  const dashboardRoutes = ['/new', '/results', '/profile'];
+  const onDashboard = dashboardRoutes.some(path => location.pathname.startsWith(path));
 
   const setVisibilityFalse = () => {
     setSettingsVisibility(false);
@@ -109,8 +115,11 @@ function App() {
           setSettingsVisibility={setSettingsVisibility} 
           mobileSidebarVisibility={mobileSidebarVisibility} 
           setMobileSidebarVisibility={setMobileSidebarVisibility} 
+          collapsed={collapsed}
+          setCollapsed={setCollapsed}
+          onDashboard={onDashboard}
         />
-        <main className='flex-1 w-full'>
+        <main className={`flex-1 w-full ${onDashboard ? (collapsed ? 'lg:ml-10 lg:w-auto' : 'lg:ml-60 lg:w-auto') : ''} transition-all duration-300`}>
           <Routes>
             <Route path='/' element='' />
             <Route path='/login' element={<LoginPage loginSuccess={loginHandler} />} />
@@ -136,12 +145,13 @@ function App() {
               path='/profile' 
               element={
                 <ProtectedRoute authedUser={authedUser}>
+                  <ProfilePage authedUser={authedUser} logout={logoutHandler} /> 
                 </ProtectedRoute>
               } 
             />
           </Routes>
         </main>
-        <PageFooter />
+        <PageFooter onDashboard={onDashboard} />
       </div>
     </ThemeContext.Provider>
   );
