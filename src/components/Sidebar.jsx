@@ -1,237 +1,218 @@
-import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
-import ThemeContext from "../contexts/ThemeContext.js";
-import IconButton from "./IconButton.jsx";
-import { 
-    FaMoon, 
-    FaRegSun, 
-    FaAlignJustify, 
-    FaMattressPillow,
-    FaCirclePlus,
-    FaClock,
-    FaCircleUser
-} from "react-icons/fa6";
-import Button from "./Button.jsx";
-import BodyText from "./BodyText.jsx";
-import SidebarSettings from "./SidebarSettings.jsx";
+import { useContext } from 'react';
+import { Link } from 'react-router-dom';
+import ThemeContext from '../contexts/ThemeContext.js';
+import IconButton from './IconButton.jsx';
+import {
+  FaMoon,
+  FaRegSun,
+  FaAlignJustify,
+  FaMattressPillow,
+  FaCirclePlus,
+  FaClock,
+  FaCircleUser
+} from 'react-icons/fa6';
+import Button from './Button.jsx';
+import BodyText from './BodyText.jsx';
+import SidebarSettings from './SidebarSettings.jsx';
 
-const Sidebar = ({ 
-    toggleTheme, 
-    authedUser, 
-    logout, 
-    settingsVisibility, 
-    setSettingsVisibility, 
-    mobileSidebarVisibility, 
-    setMobileSidebarVisibility 
+const Sidebar = ({
+  toggleTheme,
+  authedUser,
+  logout,
+  settingsVisibility,
+  setSettingsVisibility,
+  mobileSidebarVisibility,
+  setMobileSidebarVisibility,
+  collapsed,
+  setCollapsed,
 }) => {
-    const theme = useContext(ThemeContext);
+  const theme = useContext(ThemeContext);
+  const toggleCollapsed = () => setCollapsed((prev) => !prev);
 
-    const [collapsed, setCollapsed] = useState(false);
-    const toggleCollapsed = () => setCollapsed((prev) => !prev);
-    
-    return (
-        <>
-            <header className='lg:hidden w-full h-auto top-0 fixed z-50 flex flex-row'>
-                <aside onClick={(e) => e.stopPropagation()} 
-                    className={`
-                    lg:hidden flex-col gap-lg flex
-                    z-50 pt-4
-                    bg-surface dark:bg-inverse-surface border-r border-outline min-h-screen
-                    text-on-surface transition-all duration-300 overflow-hidden
-                    ${mobileSidebarVisibility ? 'top-0 left-0 w-60 px-4' : 'w-0'}
-                `}>
-                    <div className="flex flex-row items-center justify-between">
-                        <Link to='/'>
-                            <h2 className='
-                                    text-headline-md font-display font-bold text-on-surface 
-                                    dark:text-inverse-on-surface whitespace-nowrap
-                                '
-                            >
-                                Teralit
-                            </h2>
-                        </Link>
-                    </div>
-                    <div className="flex flex-col items-center justify-start gap-sm">
-                        <Link to='/new' className="w-full">
-                            <Button 
-                                variant="ghost" 
-                                fullWidth={true} 
-                                startIcon={<FaCirclePlus />} 
-                                className="
-                                    justify-start pl-1 text-primary dark:text-inverse-primary 
-                                    whitespace-nowrap
-                                "
-                            >
-                                New Scanner
-                            </Button>
-                        </Link>
-                        <Link to='/results' className="w-full">
-                            <Button 
-                                variant="ghost" 
-                                fullWidth={true} 
-                                startIcon={<FaClock />} 
-                                className="
-                                    justify-start pl-1 text-primary dark:text-inverse-primary 
-                                    whitespace-nowrap
-                                "
-                            >
-                                History
-                            </Button>
-                        </Link>
-                    </div>
-                    <div className="
-                            mt-auto -mx-4 border-t hover:bg-surface-container-highest 
-                            dark:hover:bg-on-surface-variant hover:cursor-pointer 
-                            dark:text-inverse-on-surface
-                        "
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            setSettingsVisibility((prev) => !prev);
-                        }}
-                    >
-                        <div className="flex flex-row items-center justify-start gap-lg p-4">
-                            <FaCircleUser />
-                            <div className="flex flex-col items-start justify-center gap-sm">
-                                <BodyText className="whitespace-nowrap">{authedUser?.name}</BodyText>
-                                <p className="
-                                        text-label-bold font-label-bold whitespace-nowrap
-                                    "
-                                >
-                                    {authedUser?.email}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </aside>
-                <div className="flex-1">
-                    <nav className="flex justify-between items-center h-16 px-container-margin max-w-250 mx-auto">
-                        <div className="lg:hidden">
-                            <ul className="flex flex-row items-center gap-5 text-headline-md">
-                                <li>
-                                    <IconButton onClick={(e) => {
-                                        e.stopPropagation();
-                                        setMobileSidebarVisibility((prev) => !prev);
-                                    }}>
-                                        <FaAlignJustify />
-                                    </IconButton>
-                                </li>
-                                <li>
-                                    <IconButton onClick={toggleTheme}>
-                                        {theme === 'light' ? <FaMoon /> : <FaRegSun />}
-                                    </IconButton>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
-
-            </header>
-            <aside className={`
-                    hidden lg:flex flex-col ${collapsed ? 'items-center' : ''} 
-                    gap-lg fixed top-0 left-0 w-full ${!collapsed ? 'lg:w-60' : 'lg:w-10'} 
-                    px-4 pt-4 bg-surface dark:bg-inverse-surface border-r border-outline 
-                    min-h-screen text-on-surface transition-all duration-300
-                `
-            }>
-                {!collapsed && (
-                    <>
-                        <div className="flex flex-row items-center justify-between">
-                            <Link to='/'>
-                                <h2 className='
-                                        text-headline-md font-display font-bold 
-                                        text-on-surface dark:text-inverse-on-surface
-                                    '
-                                >
-                                    Teralit
-                                </h2>
-                            </Link>
-                            <IconButton onClick={toggleCollapsed}>
-                                <FaMattressPillow />
-                            </IconButton>
-                        </div>
-                        <div className="flex flex-col items-center justify-start gap-sm">
-                            <Link to='/new' className="w-full">
-                                <Button 
-                                    variant="ghost" 
-                                    fullWidth={true} 
-                                    startIcon={<FaCirclePlus />} 
-                                    className="justify-start pl-1 text-primary dark:text-inverse-primary"
-                                >
-                                    New Scanner
-                                </Button>
-                            </Link>
-                            <Link to='/results' className="w-full">
-                                <Button 
-                                    variant="ghost" 
-                                    fullWidth={true} 
-                                    startIcon={<FaClock />} 
-                                    className="
-                                        justify-start pl-1 text-primary dark:text-inverse-primary
-                                    "
-                                >
-                                    History
-                                </Button>
-                            </Link>
-                        </div>
-                        <div className="
-                            mt-auto -mx-4 border-t hover:bg-surface-container-highest dark:hover:bg-on-surface-variant 
-                            hover:cursor-pointer dark:text-inverse-on-surface
-                        " 
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setSettingsVisibility((prev) => !prev);
-                            }}
-                        >
-                            <div className="flex flex-row items-center justify-start gap-lg p-4">
-                                <FaCircleUser />
-                                <div className="flex flex-col items-start justify-center gap-sm">
-                                    <BodyText>{authedUser?.name}</BodyText>
-                                    <p className="text-label-bold font-label-bold">{authedUser?.email}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </>
-                )}
-                {collapsed && (
-                    <>
-                        <IconButton onClick={toggleCollapsed}>
-                            <FaMattressPillow />
-                        </IconButton>
-                        <div className="flex flex-col items-center justify-start gap-lg">
-                            <IconButton>
-                                <FaCirclePlus />
-                            </IconButton>
-                            <IconButton>
-                                <FaClock />
-                            </IconButton>
-                        </div>
-                        <div className="
-                                mt-auto self-stretch -mx-4 py-4 flex justify-center items-center 
-                                hover:bg-surface-container-highest dark:hover:bg-on-surface-variant 
-                                hover:cursor-pointer dark:text-inverse-on-surface
-                            " 
-                            onClick={(e) => {
-                                e.stopPropagation();
-                                setSettingsVisibility((prev) => !prev);
-                            }}
-                        >
-                            <FaCircleUser />
-                        </div>
-                    </>
-                )}
-            </aside>
-            <header className="top-0 right-0 w-full hidden lg:flex flex-row justify-end items-start px-10 pt-4">
-                <IconButton onClick={toggleTheme}>
+  return (
+    <>
+      <header className='lg:hidden w-auto h-auto top-0 left-0 fixed flex flex-row'>
+        <aside
+          onClick={(e) => e.stopPropagation()}
+          className={`lg:hidden flex-col gap-lg flexz-50 pt-4bg-surface dark:bg-inverse-surface border-r border-outline min-h-screen text-on-surface transition-all duration-300 overflow-hidden ${mobileSidebarVisibility ? 'top-0 left-0 w-60 px-4' : 'w-0'}`}
+        >
+          <div className="flex flex-row items-center justify-between">
+            <Link to='/'>
+              <h2 className='text-headline-md font-display font-bold text-on-surface dark:text-inverse-on-surface whitespace-nowrap'>
+                Teralit
+              </h2>
+            </Link>
+          </div>
+          <div className="flex flex-col items-center justify-start gap-sm">
+            <Link
+              to='/new'
+              className="w-full"
+            >
+              <Button
+                variant="ghost"
+                fullWidth
+                startIcon={<FaCirclePlus />}
+                className="justify-start pl-1 text-primary dark:text-inverse-primary whitespace-nowrap"
+              >
+                New Scanner
+              </Button>
+            </Link>
+            <Link
+              to='/results'
+              className="w-full"
+            >
+              <Button
+                variant="ghost"
+                fullWidth
+                startIcon={<FaClock />}
+                className="justify-start pl-1 text-primary dark:text-inverse-primary whitespace-nowrap"
+              >
+                History
+              </Button>
+            </Link>
+          </div>
+          <div
+            className="mt-auto -mx-4 border-t hover:bg-surface-container-highest dark:hover:bg-on-surface-variant hover:cursor-pointer dark:text-inverse-on-surface"
+            onClick={(e) => {
+              e.stopPropagation();
+              setSettingsVisibility((prev) => !prev);
+            }}
+          >
+            <div className="flex flex-row items-center justify-start gap-lg p-4">
+              <FaCircleUser />
+              <div className="flex flex-col items-start justify-center gap-sm">
+                <BodyText className="whitespace-nowrap">
+                  {authedUser?.name}
+                </BodyText>
+                <p className="text-label-bold font-label-bold whitespace-nowrap">
+                  {authedUser?.email}
+                </p>
+              </div>
+            </div>
+          </div>
+        </aside>
+        <div className="flex-1">
+          <nav className="flex justify-between items-center h-16 px-container-margin max-w-250 mx-auto">
+            <div className="lg:hidden">
+              <ul className="flex flex-row items-center gap-5 text-headline-md">
+                <li>
+                  <IconButton
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setMobileSidebarVisibility((prev) => !prev);
+                    }}
+                  >
+                    <FaAlignJustify />
+                  </IconButton>
+                </li>
+                <li>
+                  <IconButton
+                    onClick={toggleTheme}
+                  >
                     {theme === 'light' ? <FaMoon /> : <FaRegSun />}
-                </IconButton>
-            </header>
-            <SidebarSettings 
-                settingsVisibility={settingsVisibility} 
-                logout={logout} 
-                setSettingsVisibility={setSettingsVisibility} 
-            />
-        </>
-    )
+                  </IconButton>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+
+      </header>
+      <aside className={`hidden lg:flex flex-col ${collapsed ? 'items-center' : ''} gap-lg fixed top-0 left-0 w-full ${!collapsed ? 'lg:w-60' : 'lg:w-10'} px-4 pt-4 bg-surface dark:bg-inverse-surface border-r border-outline min-h-screen text-on-surface transition-all duration-300`}>
+        {!collapsed && (
+          <>
+            <div className="flex flex-row items-center justify-between">
+              <Link to='/'>
+                <h2 className='text-headline-md font-display font-bold text-on-surface dark:text-inverse-on-surface'>
+                    Teralit
+                </h2>
+              </Link>
+              <IconButton onClick={toggleCollapsed}>
+                <FaMattressPillow />
+              </IconButton>
+            </div>
+            <div className="flex flex-col items-center justify-start gap-sm">
+              <Link
+                to='/new'
+                className="w-full"
+              >
+                <Button
+                  variant="ghost"
+                  fullWidth
+                  startIcon={<FaCirclePlus />}
+                  className="justify-start pl-1 text-primary dark:text-inverse-primary"
+                >
+                    New Scanner
+                </Button>
+              </Link>
+              <Link
+                to='/results'
+                className="w-full"
+              >
+                <Button
+                  variant="ghost"
+                  fullWidth
+                  startIcon={<FaClock />}
+                  className="justify-start pl-1 text-primary dark:text-inverse-primary"
+                >
+                    History
+                </Button>
+              </Link>
+            </div>
+            <div
+              className="mt-auto -mx-4 border-t hover:bg-surface-container-highest dark:hover:bg-on-surface-variant hover:cursor-pointer dark:text-inverse-on-surface"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSettingsVisibility((prev) => !prev);
+              }}
+            >
+              <div className="flex flex-row items-center justify-start gap-lg p-4">
+                <FaCircleUser />
+                <div className="flex flex-col items-start justify-center gap-sm">
+                  <BodyText>{authedUser?.name}</BodyText>
+                  <p className="text-label-bold font-label-bold">{authedUser?.email}</p>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
+        {collapsed && (
+          <>
+            <IconButton onClick={toggleCollapsed}>
+              <FaMattressPillow />
+            </IconButton>
+            <div className="flex flex-col items-center justify-start gap-lg">
+              <IconButton>
+                <FaCirclePlus />
+              </IconButton>
+              <IconButton>
+                <FaClock />
+              </IconButton>
+            </div>
+            <div
+              className="mt-auto self-stretch -mx-4 py-4 flex justify-center items-centerhover:bg-surface-container-highest dark:hover:bg-on-surface-varianthover:cursor-pointer dark:text-inverse-on-surface"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSettingsVisibility((prev) => !prev);
+              }}
+            >
+              <FaCircleUser />
+            </div>
+          </>
+        )}
+      </aside>
+      <header className="top-0 right-0 w-auto hidden fixed lg:flex flex-row justify-end items-start px-10 pt-4">
+        <IconButton onClick={toggleTheme}>
+          {theme === 'light' ? <FaMoon /> : <FaRegSun />}
+        </IconButton>
+      </header>
+      <SidebarSettings
+        settingsVisibility={settingsVisibility}
+        logout={logout}
+        setSettingsVisibility={setSettingsVisibility}
+      />
+    </>
+  );
 };
 
 export default Sidebar;

@@ -1,10 +1,9 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { FaMoon, FaRegSun, FaAlignJustify, FaPowerOff } from 'react-icons/fa6';
+import { FaMoon, FaRegSun, FaAlignJustify } from 'react-icons/fa6';
 import ThemeContext from '../contexts/ThemeContext.js';
 import Logo from './Logo.jsx';
 import LinkText from './LinkText.jsx';
-import BodyText from './BodyText.jsx';
 import Button from './Button.jsx';
 import IconButton from './IconButton.jsx';
 
@@ -26,9 +25,27 @@ const Navbar = ({ toggleTheme, loggedIn }) => {
             <ul className="flex flex-row items-center gap-5">
               {(isActive('/') || isActive('/how-it-works') || isActive('/accuracy')) && (
                 <>
-                  <li><Link to=''><LinkText>How It Works</LinkText></Link></li>
-                  <li><Link to=''><LinkText>Accuracy</LinkText></Link></li>
-                  <li><Link to={loggedIn ? "/new" : "/login"}><Button variant='filled' size='sm' className='rounded-2xl'>Start Scan</Button></Link></li>
+                  <li>
+                    <Link to=''>
+                      <LinkText>How It Works</LinkText>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to=''>
+                      <LinkText>Accuracy</LinkText>
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to={loggedIn ? '/new' : '/login'}>
+                      <Button
+                        variant='filled'
+                        size='sm'
+                        className='rounded-2xl'
+                      >
+                        Start Scan
+                      </Button>
+                    </Link>
+                  </li>
                 </>
               )}
               <li>
@@ -56,15 +73,34 @@ const Navbar = ({ toggleTheme, loggedIn }) => {
           </div>
         </nav>
       </div>
-      {mobileNav && <div className="md:hidden flex items-center justify-center w-full py-md border-t border-outline-variant dark:border-outline">
-        <ul className="flex flex-col items-center gap-xl">
-          <li><LinkText>How It Works</LinkText></li>
-          <li><Link to=''><LinkText>Accuracy</LinkText></Link></li>
-          <li><Link to={loggedIn ? "/new" : "/login"}><Button onClick={toggleMobileNav} variant='filled' size='sm' className='rounded-2xl'>Start Scan</Button></Link></li>
-        </ul>
-      </div>}
+      {mobileNav && (
+        <div className="md:hidden flex items-center justify-center w-full py-md border-t border-outline-variant dark:border-outline">
+          <ul className="flex flex-col items-center gap-xl">
+            <li>
+              <LinkText>How It Works</LinkText>
+            </li>
+            <li>
+              <Link to=''>
+                <LinkText>Accuracy</LinkText>
+              </Link>
+            </li>
+            <li>
+              <Link to={loggedIn ? '/new' : '/login'}>
+                <Button
+                  onClick={toggleMobileNav}
+                  variant='filled'
+                  size='sm'
+                  className='rounded-2xl'
+                >
+                  Start Scan
+                </Button>
+              </Link>
+            </li>
+          </ul>
+        </div>
+      )}
     </header>
   );
-}
+};
 
 export default Navbar;

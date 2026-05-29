@@ -1,6 +1,6 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useContext } from 'react';
+import ThemeContext from '../contexts/ThemeContext.js';
 
-// ─── Ripple hook ──────────────────────────────────────────────────────────────
 function useRipple() {
   const [ripples, setRipples] = useState([]);
   const nextId = useRef(0);
@@ -19,51 +19,52 @@ function useRipple() {
   return [ripples, addRipple];
 }
 
-const COLOR_TOKENS = {
-  primary: {
-    solid:           'var(--color-primary)',
-    solidHover:      'var(--color-primary-container)',   // darker container
-    onSolid:         'var(--color-on-primary)',
-    container:       'var(--color-primary-fixed)',       // very light tint
-    containerHover:  'var(--color-primary-fixed-dim)',
-    onContainer:     'var(--color-primary)',
-    outline:         'var(--color-primary)',
-    ring:            'var(--color-primary)',
-  },
-  secondary: {
-    solid:           'var(--color-secondary)',
-    solidHover:      'color-mix(in srgb, var(--color-secondary) 85%, black)',
-    onSolid:         'var(--color-on-secondary)',
-    container:       'var(--color-secondary-fixed)',
-    containerHover:  'var(--color-secondary-fixed-dim)',
-    onContainer:     'var(--color-secondary)',
-    outline:         'var(--color-secondary)',
-    ring:            'var(--color-secondary)',
-  },
-  tertiary: {
-    solid:           'var(--color-tertiary)',
-    solidHover:      'var(--color-tertiary-container)',
-    onSolid:         'var(--color-on-tertiary)',
-    container:       'var(--color-tertiary-fixed)',
-    containerHover:  'var(--color-tertiary-fixed-dim)',
-    onContainer:     'var(--color-tertiary)',
-    outline:         'var(--color-tertiary)',
-    ring:            'var(--color-tertiary)',
-  },
-  error: {
-    solid:           'var(--color-error)',
-    solidHover:      'color-mix(in srgb, var(--color-error) 85%, black)',
-    onSolid:         'var(--color-on-error)',
-    container:       'var(--color-error-container)',
-    containerHover:  'color-mix(in srgb, var(--color-error-container) 80%, var(--color-error))',
-    onContainer:     'var(--color-on-error-container)',
-    outline:         'var(--color-error)',
-    ring:            'var(--color-error)',
-  },
-};
+function getColorTokens(dark) {
+  return {
+    primary: {
+      solid:          dark ? '#b2c5ff' : 'var(--color-primary)',
+      solidHover:     dark ? '#dae2ff' : 'var(--color-primary-container)',
+      onSolid:        dark ? '#001848' : 'var(--color-on-primary)',
+      container:      dark ? '#0040a2' : 'var(--color-primary-fixed)',
+      containerHover: dark ? '#0052cc' : 'var(--color-primary-fixed-dim)',
+      onContainer:    dark ? '#dae2ff' : 'var(--color-primary)',
+      outline:        dark ? '#b2c5ff' : 'var(--color-primary)',
+      ring:           dark ? '#b2c5ff' : 'var(--color-primary)',
+    },
+    secondary: {
+      solid:          dark ? '#65d7db' : 'var(--color-secondary)',
+      solidHover:     dark ? '#84f4f8' : 'color-mix(in srgb, var(--color-secondary) 85%, black)',
+      onSolid:        dark ? '#002021' : 'var(--color-on-secondary)',
+      container:      dark ? '#004f52' : 'var(--color-secondary-fixed)',
+      containerHover: dark ? '#006e71' : 'var(--color-secondary-fixed-dim)',
+      onContainer:    dark ? '#84f4f8' : 'var(--color-secondary)',
+      outline:        dark ? '#65d7db' : 'var(--color-secondary)',
+      ring:           dark ? '#65d7db' : 'var(--color-secondary)',
+    },
+    tertiary: {
+      solid:          dark ? '#ffb59b' : 'var(--color-tertiary)',
+      solidHover:     dark ? '#ffdbcf' : 'var(--color-tertiary-container)',
+      onSolid:        dark ? '#380d00' : 'var(--color-on-tertiary)',
+      container:      dark ? '#a33500' : 'var(--color-tertiary-fixed)',
+      containerHover: dark ? '#7b2600' : 'var(--color-tertiary-fixed-dim)',
+      onContainer:    dark ? '#ffdbcf' : 'var(--color-tertiary)',
+      outline:        dark ? '#ffb59b' : 'var(--color-tertiary)',
+      ring:           dark ? '#ffb59b' : 'var(--color-tertiary)',
+    },
+    error: {
+      solid:          dark ? '#ffb4ab' : 'var(--color-error)',
+      solidHover:     dark ? '#ffdad6' : 'color-mix(in srgb, var(--color-error) 85%, black)',
+      onSolid:        dark ? '#690005' : 'var(--color-on-error)',
+      container:      dark ? '#93000a' : 'var(--color-error-container)',
+      containerHover: dark ? '#ba1a1a' : 'color-mix(in srgb, var(--color-error-container) 80%, var(--color-error))',
+      onContainer:    dark ? '#ffdad6' : 'var(--color-on-error-container)',
+      outline:        dark ? '#ffb4ab' : 'var(--color-error)',
+      ring:           dark ? '#ffb4ab' : 'var(--color-error)',
+    },
+  };
+}
 
-// ─── Per-variant style builders ───────────────────────────────────────────────
-function getStyle(variant, colorKey, hovered) {
+function getStyle(variant, colorKey, hovered, COLOR_TOKENS) {
   const t = COLOR_TOKENS[colorKey] ?? COLOR_TOKENS.primary;
 
   switch (variant) {
@@ -77,7 +78,7 @@ function getStyle(variant, colorKey, hovered) {
         : '0 2px 6px rgba(0,0,0,.14)',
     };
 
-  case 'tonal': // Material 3 "filled tonal"
+  case 'tonal':
     return {
       backgroundColor: hovered ? t.containerHover : t.container,
       color: t.onContainer,
@@ -96,6 +97,7 @@ function getStyle(variant, colorKey, hovered) {
   case 'ghost':
     return {
       backgroundColor: hovered ? `color-mix(in srgb, ${t.container} 60%, transparent)` : 'transparent',
+      color: t.onContainer,
       border: '2px solid transparent',
       boxShadow: 'none',
     };
@@ -105,7 +107,6 @@ function getStyle(variant, colorKey, hovered) {
   }
 }
 
-// ─── Ripple color per variant ─────────────────────────────────────────────────
 const RIPPLE_OPACITY = {
   filled:   'rgba(255,255,255,0.30)',
   tonal:    'rgba(0,0,0,0.08)',
@@ -113,26 +114,23 @@ const RIPPLE_OPACITY = {
   ghost:    'rgba(0,0,0,0.08)',
 };
 
-// ─── Size classes (only spacing/typography, no color) ─────────────────────────
 const SIZES = {
-  sm: 'h-8  px-4  gap-1.5 rounded',        // --radius-DEFAULT (0.25rem)
-  md: 'h-10 px-5  gap-2   rounded-lg',     // --radius-lg (0.5rem)
-  lg: 'h-12 px-7  gap-2.5 rounded-xl',     // --radius-xl (0.75rem)
+  sm: 'h-8  px-4  gap-1.5 rounded',
+  md: 'h-10 px-5  gap-2   rounded-lg',
+  lg: 'h-12 px-7  gap-2.5 rounded-xl',
 };
 
-// ─── Font style per size (matches your @theme label tokens) ──────────────────
 const FONT_STYLES = {
   sm: { fontFamily: 'var(--font-label-md)', fontSize: 'var(--text-label-md)', fontWeight: 'var(--text-label-md--font-weight)', lineHeight: 'var(--text-label-md--line-height)' },
   md: { fontFamily: 'var(--font-label-md)', fontSize: 'var(--text-label-md)', fontWeight: 'var(--text-label-md--font-weight)', lineHeight: 'var(--text-label-md--line-height)' },
-  lg: { fontFamily: 'var(--font-body-md)',  fontSize: 'var(--text-body-sm)',  fontWeight: 500,                                  lineHeight: 'var(--text-body-sm--line-height)'  },
+  lg: { fontFamily: 'var(--font-body-md)',  fontSize: 'var(--text-body-sm)',  fontWeight: 500,                                  lineHeight: 'var(--text-body-sm--line-height)' },
 };
 
-// ─── Button ───────────────────────────────────────────────────────────────────
 export function Button({
   children,
-  variant = 'filled',   // "filled" | "tonal" | "outlined" | "ghost"
-  color   = 'primary',  // "primary" | "secondary" | "tertiary" | "error"
-  size    = 'md',       // "sm" | "md" | "lg"
+  variant  = 'filled',
+  color    = 'primary',
+  size     = 'md',
   loading  = false,
   disabled = false,
   fullWidth = false,
@@ -143,6 +141,9 @@ export function Button({
   style: styleProp = {},
   ...props
 }) {
+  const theme = useContext(ThemeContext);
+  const dark  = theme === 'dark';
+
   const [ripples, addRipple] = useRipple();
   const [hovered, setHovered] = useState(false);
   const isDisabled = disabled || loading;
@@ -153,7 +154,8 @@ export function Button({
     onClick?.(e);
   };
 
-  const variantStyle = getStyle(variant, color, hovered);
+  const COLOR_TOKENS = getColorTokens(dark);
+  const variantStyle = getStyle(variant, color, hovered, COLOR_TOKENS);
   const rippleColor  = RIPPLE_OPACITY[variant] ?? RIPPLE_OPACITY.filled;
 
   return (
@@ -170,7 +172,7 @@ export function Button({
         ...styleProp,
       }}
       className={[
-        'relative inline-flex items-center justify-center',
+        'inline-flex items-center justify-center',
         'select-none overflow-hidden',
         'focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2',
         'active:scale-[0.97]',
@@ -181,8 +183,10 @@ export function Button({
       ].filter(Boolean).join(' ')}
       {...props}
     >
-      {/* Ripple layer */}
-      <span aria-hidden="true" className="absolute inset-0 pointer-events-none">
+      <span
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none"
+      >
         {ripples.map(({ id, x, y, size: s }) => (
           <span
             key={id}
@@ -198,17 +202,24 @@ export function Button({
         ))}
       </span>
 
-      {/* Start icon / spinner */}
       {loading ? (
-        <svg className="animate-spin shrink-0" width="16" height="16" viewBox="0 0 24 24"
-          fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true">
+        <svg
+          className="animate-spin shrink-0"
+          width="16"
+          height="16"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          aria-hidden="true"
+        >
           <path d="M21 12a9 9 0 1 1-6.219-8.56" />
         </svg>
       ) : (
         startIcon && <span className="shrink-0">{startIcon}</span>
       )}
 
-      <span className="relative z-10">{children}</span>
+      <span>{children}</span>
 
       {!loading && endIcon && <span className="shrink-0">{endIcon}</span>}
     </button>
