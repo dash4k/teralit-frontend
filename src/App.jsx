@@ -28,7 +28,6 @@ import ResendVerificationPage from './pages/ResendVerificationPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
 
 import ThemeContext from './contexts/ThemeContext.js';
-import toast from 'react-hot-toast';
 
 function App() {
   const [authedUser, setAuthedUser] = React.useState(null);
@@ -40,12 +39,12 @@ function App() {
 
   const location = useLocation();
   const dashboardRoutes = ['/new', '/results', '/profile'];
-  const onDashboard = dashboardRoutes.some(path => location.pathname.startsWith(path));
+  const onDashboard = dashboardRoutes.some((path) => location.pathname.startsWith(path));
 
   const setVisibilityFalse = () => {
     setSettingsVisibility(false);
     setMobileSidebarVisibility(false);
-  }
+  };
 
   const loginHandler = async ({ refreshToken, accessToken }) => {
     putRefreshToken(refreshToken);
@@ -85,7 +84,7 @@ function App() {
           const { data } = await viewProfile();
           setAuthedUser(data);
         }
-      } catch (error) {
+      } catch (_error) {
         setAuthedUser(null);
       } finally {
         setInitializing(false);
@@ -100,54 +99,73 @@ function App() {
   return (
     <ThemeContext.Provider value={theme}>
       <ToasterWrapper />
-      <div 
-        onClick={setVisibilityFalse} 
+      <div
+        onClick={setVisibilityFalse}
         className="
-          flex flex-col justify-between items-center min-h-screen w-full 
+          flex flex-col justify-between items-center min-h-screen w-full
           bg-background dark:bg-on-background transition-colors
         "
       >
-        <Navigation 
-          toggleTheme={toggleTheme} 
-          authedUser={authedUser} 
-          logout={logoutHandler} 
-          settingsVisibility={settingsVisibility} 
-          setSettingsVisibility={setSettingsVisibility} 
-          mobileSidebarVisibility={mobileSidebarVisibility} 
-          setMobileSidebarVisibility={setMobileSidebarVisibility} 
+        <Navigation
+          toggleTheme={toggleTheme}
+          authedUser={authedUser}
+          logout={logoutHandler}
+          settingsVisibility={settingsVisibility}
+          setSettingsVisibility={setSettingsVisibility}
+          mobileSidebarVisibility={mobileSidebarVisibility}
+          setMobileSidebarVisibility={setMobileSidebarVisibility}
           collapsed={collapsed}
           setCollapsed={setCollapsed}
           onDashboard={onDashboard}
         />
         <main className={`flex-1 w-full ${onDashboard ? (collapsed ? 'lg:ml-10 lg:w-auto' : 'lg:ml-60 lg:w-auto') : ''} transition-all duration-300`}>
           <Routes>
-            <Route path='/' element='' />
-            <Route path='/login' element={<LoginPage loginSuccess={loginHandler} />} />
-            <Route path='/register' element={<RegisterPage />} />
-            <Route path='/check-email' element={<CheckEmailPage />} />
-            <Route path='/verify-email' element={<VerifyEmailPage />} />
-            <Route path='/resend-verification-email' element={<ResendVerificationPage />} />
-            <Route 
-              path='/new' 
-              element={
-                <ProtectedRoute authedUser={authedUser}>
-                </ProtectedRoute>
-              } 
+            <Route
+              path='/'
+              element=''
             />
-            <Route 
-              path='/results/*' 
-              element={
-                <ProtectedRoute authedUser={authedUser}>
-                </ProtectedRoute>
-              } 
+            <Route
+              path='/login'
+              element={<LoginPage loginSuccess={loginHandler} />}
             />
-            <Route 
-              path='/profile' 
+            <Route
+              path='/register'
+              element={<RegisterPage />}
+            />
+            <Route
+              path='/check-email'
+              element={<CheckEmailPage />}
+            />
+            <Route
+              path='/verify-email'
+              element={<VerifyEmailPage />}
+            />
+            <Route
+              path='/resend-verification-email'
+              element={<ResendVerificationPage />}
+            />
+            <Route
+              path='/new'
+              element={
+                <ProtectedRoute authedUser={authedUser} />
+              }
+            />
+            <Route
+              path='/results/*'
+              element={
+                <ProtectedRoute authedUser={authedUser} />
+              }
+            />
+            <Route
+              path='/profile'
               element={
                 <ProtectedRoute authedUser={authedUser}>
-                  <ProfilePage authedUser={authedUser} logout={logoutHandler} /> 
+                  <ProfilePage
+                    authedUser={authedUser}
+                    logout={logoutHandler}
+                  />
                 </ProtectedRoute>
-              } 
+              }
             />
           </Routes>
         </main>
