@@ -86,7 +86,7 @@ const ProfilePage = ({ authedUser, logout }) => {
   };
 
   return (
-    <section className="w-full min-h-screen lg:h-auto px-container-margin mx-auto flex flex-col justify-center items-center lg:items-start">
+    <section className="w-full min-h-dvh lg:h-auto px-container-margin mx-auto flex flex-col justify-center items-center lg:items-start">
       <div className="flex flex-col gap-lg">
         <Heading>Profile</Heading>
 
