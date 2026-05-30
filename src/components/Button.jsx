@@ -1,23 +1,5 @@
-import { useState, useRef, useCallback, useContext } from 'react';
+import { useState, useContext } from 'react';
 import ThemeContext from '../contexts/ThemeContext.js';
-
-function useRipple() {
-  const [ripples, setRipples] = useState([]);
-  const nextId = useRef(0);
-
-  const addRipple = useCallback((e) => {
-    const btn = e.currentTarget;
-    const rect = btn.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    const size = Math.max(rect.width, rect.height) * 2;
-    const id = nextId.current++;
-    setRipples((prev) => [...prev, { id, x, y, size }]);
-    setTimeout(() => setRipples((prev) => prev.filter((r) => r.id !== id)), 600);
-  }, []);
-
-  return [ripples, addRipple];
-}
 
 function getColorTokens(dark) {
   return {
@@ -107,13 +89,6 @@ function getStyle(variant, colorKey, hovered, COLOR_TOKENS) {
   }
 }
 
-const RIPPLE_OPACITY = {
-  filled:   'rgba(255,255,255,0.30)',
-  tonal:    'rgba(0,0,0,0.08)',
-  outlined: 'rgba(0,0,0,0.08)',
-  ghost:    'rgba(0,0,0,0.08)',
-};
-
 const SIZES = {
   sm: 'h-8  px-4  gap-1.5 rounded',
   md: 'h-10 px-5  gap-2   rounded-lg',
@@ -144,19 +119,16 @@ export function Button({
   const theme = useContext(ThemeContext);
   const dark  = theme === 'dark';
 
-  const [ripples, addRipple] = useRipple();
   const [hovered, setHovered] = useState(false);
   const isDisabled = disabled || loading;
 
   const handleClick = (e) => {
     if (isDisabled) return;
-    addRipple(e);
     onClick?.(e);
   };
 
   const COLOR_TOKENS = getColorTokens(dark);
   const variantStyle = getStyle(variant, color, hovered, COLOR_TOKENS);
-  const rippleColor  = RIPPLE_OPACITY[variant] ?? RIPPLE_OPACITY.filled;
 
   return (
     <button
@@ -183,25 +155,6 @@ export function Button({
       ].filter(Boolean).join(' ')}
       {...props}
     >
-      <span
-        aria-hidden="true"
-        className="absolute inset-0 pointer-events-none"
-      >
-        {ripples.map(({ id, x, y, size: s }) => (
-          <span
-            key={id}
-            className="absolute rounded-full animate-ripple"
-            style={{
-              width: s,
-              height: s,
-              left: x - s / 2,
-              top: y - s / 2,
-              backgroundColor: rippleColor,
-            }}
-          />
-        ))}
-      </span>
-
       {loading ? (
         <svg
           className="animate-spin shrink-0"
