@@ -26,6 +26,9 @@ import CheckEmailPage from './pages/CheckEmailPage.jsx';
 import VerifyEmailPage from './pages/VerifyEmailPage.jsx';
 import ResendVerificationPage from './pages/ResendVerificationPage.jsx';
 import ProfilePage from './pages/ProfilePage.jsx';
+import NewScanPage from './pages/NewScanPage.jsx';
+import ResultDetailPage from './pages/ResultDetailPage.jsx';
+import ResultsPage from './pages/ResultsPage.jsx';
 
 import ThemeContext from './contexts/ThemeContext.js';
 
@@ -102,7 +105,7 @@ function App() {
       <div
         onClick={setVisibilityFalse}
         className="
-          flex flex-col justify-between items-center min-h-screen w-full
+          flex flex-col justify-between items-center min-h-dvh w-full
           bg-background dark:bg-on-background transition-colors
         "
       >
@@ -118,7 +121,7 @@ function App() {
           setCollapsed={setCollapsed}
           onDashboard={onDashboard}
         />
-        <main className={`flex-1 w-full ${onDashboard ? (collapsed ? 'lg:ml-10 lg:w-auto' : 'lg:ml-60 lg:w-auto') : ''} transition-all duration-300`}>
+        <main className={`flex-1 w-full ${onDashboard ? (collapsed ? 'lg:ml-10 lg:w-auto' : 'lg:ml-60 lg:w-auto') : ''} ${onDashboard ? 'mt-15 mb-15' : ''} transition-all duration-300`}>
           <Routes>
             <Route
               path='/'
@@ -147,13 +150,25 @@ function App() {
             <Route
               path='/new'
               element={
-                <ProtectedRoute authedUser={authedUser} />
+                <ProtectedRoute authedUser={authedUser}>
+                  <NewScanPage />
+                </ProtectedRoute>
               }
             />
             <Route
-              path='/results/*'
+              path='/results'
               element={
-                <ProtectedRoute authedUser={authedUser} />
+                <ProtectedRoute authedUser={authedUser}>
+                  <ResultsPage />
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path='/results/:sessionId'
+              element={
+                <ProtectedRoute authedUser={authedUser}>
+                  <ResultDetailPage authedUser={authedUser} />
+                </ProtectedRoute>
               }
             />
             <Route

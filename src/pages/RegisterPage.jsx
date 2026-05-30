@@ -44,7 +44,7 @@ const RegisterPage = () => {
   };
 
   return (
-    <section className="w-full h-screen flex items-center justify-center md:justify-between mx-auto">
+    <section className="w-full h-dvh flex items-center justify-center md:justify-between mx-auto">
       <aside className="hidden md:flex w-1/2 h-full bg-secondary">
         <img
           src="./authpage.svg"

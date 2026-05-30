@@ -31,10 +31,10 @@ const Sidebar = ({
 
   return (
     <>
-      <header className='lg:hidden w-auto h-auto top-0 left-0 fixed flex flex-row'>
+      <header className='lg:hidden w-auto h-auto top-0 left-0 fixed z-100 flex flex-row'>
         <aside
           onClick={(e) => e.stopPropagation()}
-          className={`lg:hidden flex-col gap-lg flexz-50 pt-4bg-surface dark:bg-inverse-surface border-r border-outline min-h-screen text-on-surface transition-all duration-300 overflow-hidden ${mobileSidebarVisibility ? 'top-0 left-0 w-60 px-4' : 'w-0'}`}
+          className={`lg:hidden flex-col gap-lg flex z-50 pt-4 bg-surface dark:bg-inverse-surface border-r border-outline min-h-dvh text-on-surface transition-all duration-300 overflow-hidden ${mobileSidebarVisibility ? 'top-0 left-0 w-60 px-4' : 'w-0'}`}
         >
           <div className="flex flex-row items-center justify-between">
             <Link to='/'>
@@ -92,7 +92,7 @@ const Sidebar = ({
           </div>
         </aside>
         <div className="flex-1">
-          <nav className="flex justify-between items-center h-16 px-container-margin max-w-250 mx-auto">
+          <nav className="flex justify-between items-center h-16 px-container-margin max-w-250 mx-auto backdrop-blur-xs">
             <div className="lg:hidden">
               <ul className="flex flex-row items-center gap-5 text-headline-md">
                 <li>
@@ -116,9 +116,8 @@ const Sidebar = ({
             </div>
           </nav>
         </div>
-
       </header>
-      <aside className={`hidden lg:flex flex-col ${collapsed ? 'items-center' : ''} gap-lg fixed top-0 left-0 w-full ${!collapsed ? 'lg:w-60' : 'lg:w-10'} px-4 pt-4 bg-surface dark:bg-inverse-surface border-r border-outline min-h-screen text-on-surface transition-all duration-300`}>
+      <aside className={`hidden lg:flex flex-col ${collapsed ? 'items-center' : ''} gap-lg fixed top-0 left-0 w-full ${!collapsed ? 'lg:w-60' : 'lg:w-10'} px-4 pt-4 bg-surface dark:bg-inverse-surface border-r border-outline min-h-dvh text-on-surface transition-all duration-300`}>
         {!collapsed && (
           <>
             <div className="flex flex-row items-center justify-between">

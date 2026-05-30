@@ -6,7 +6,7 @@ import Heading from '../components/Heading';
 
 const CheckEmailPage = () => {
   return (
-    <section className="w-full h-screen flex flex-col items-center justify-center mx-auto gap-lg text-center px-10">
+    <section className="w-full h-dvh flex flex-col items-center justify-center mx-auto gap-lg text-center px-10">
       <Logo />
       <Heading>One more step to join!</Heading>
       <BodyText>Please check your email and click the verification link to continue!</BodyText>

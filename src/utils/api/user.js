@@ -6,9 +6,6 @@ const BASE_URL = import.meta.env.VITE_BACKEND_URL;
 export const viewProfile = async () => {
   const response = await fetchWithToken(`${BASE_URL}/profile`, {
     method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-    },
   });
 
   const responseJson = await response.json();

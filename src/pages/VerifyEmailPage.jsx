@@ -34,7 +34,7 @@ const VerifyEmailPage = () => {
   };
 
   return (
-    <section className="w-full h-screen flex flex-col items-center justify-center mx-auto gap-lg text-center px-10">
+    <section className="w-full h-dvh flex flex-col items-center justify-center mx-auto gap-lg text-center px-10">
       <Logo />
       <Heading>Email Verification</Heading>
       <BodyText>Press the button below to verify your email!</BodyText>

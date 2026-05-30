@@ -34,7 +34,7 @@ const ResendVerificationPage = () => {
   };
 
   return (
-    <section className="w-full h-screen flex flex-col items-center justify-center mx-auto gap-lg text-center px-10">
+    <section className="w-full h-dvh flex flex-col items-center justify-center mx-auto gap-lg text-center px-10">
       <Logo />
       <Heading>Resend Email Verification</Heading>
       <BodyText>Please enter your email address and press the button to continue.</BodyText>
