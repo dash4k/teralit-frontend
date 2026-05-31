@@ -85,10 +85,10 @@ src/
 
 ## Features
 
-- ✨ Fast refresh with Vite HMR
-- 🎨 Styled with Tailwind CSS
-- 🔐 Type-safe with TypeScript
-- 📱 Responsive design
-- 🧭 Client-side routing with React Router
-- 📢 Toast notifications
-- 🎯 Optimized with React Compiler
+- Fast refresh with Vite HMR
+- Styled with Tailwind CSS
+- Type-safe with TypeScript
+- Responsive design
+- Client-side routing with React Router
+- Toast notifications
+- Optimized with React Compiler
