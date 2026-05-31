@@ -26,13 +26,21 @@ const Navbar = ({ toggleTheme, loggedIn }) => {
               {(isActive('/') || isActive('/how-it-works') || isActive('/accuracy')) && (
                 <>
                   <li>
-                    <Link to=''>
-                      <LinkText>How It Works</LinkText>
+                    <Link
+                      to='https://github.com/Liyang-A-O/Teralit---Capstone-Project'
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <LinkText>Github</LinkText>
                     </Link>
                   </li>
                   <li>
-                    <Link to=''>
-                      <LinkText>Accuracy</LinkText>
+                    <Link
+                      to='https://app-teralit-fmn6grajjkiy2gntdy6sjt.streamlit.app/'
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <LinkText>Dataset</LinkText>
                     </Link>
                   </li>
                   <li>
