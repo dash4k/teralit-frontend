@@ -29,6 +29,7 @@ import ProfilePage from './pages/ProfilePage.jsx';
 import NewScanPage from './pages/NewScanPage.jsx';
 import ResultDetailPage from './pages/ResultDetailPage.jsx';
 import ResultsPage from './pages/ResultsPage.jsx';
+import LandingPage from './pages/LandingPage.jsx';
 
 import ThemeContext from './contexts/ThemeContext.js';
 
@@ -125,7 +126,7 @@ function App() {
           <Routes>
             <Route
               path='/'
-              element=''
+              element={<LandingPage />}
             />
             <Route
               path='/login'

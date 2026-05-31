@@ -46,7 +46,7 @@ const PageFooter = ({ onDashboard }) => {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <LinkText>AI API</LinkText>
+                  <LinkText>AI Inference</LinkText>
                 </Link>
               </li>
             </ul>
