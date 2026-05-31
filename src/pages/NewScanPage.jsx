@@ -7,6 +7,7 @@ import { createSession, editStatus } from '../utils/api/session.js';
 import { uploadImage } from '../utils/api/session-image.js';
 import { makePrediction } from '../utils/api/classification-result.js';
 import { useNavigate } from 'react-router-dom';
+import { FaCameraRetro } from 'react-icons/fa6';
 
 const NewScanPage = () => {
   const navigate = useNavigate();
@@ -71,7 +72,12 @@ const NewScanPage = () => {
   return (
     <section className="w-full min-h-dvh lg:h-auto px-container-margin mx-auto flex flex-col justify-center items-center lg:items-start">
       <div className="flex flex-col gap-lg">
-        <Heading>Scanner</Heading>
+        <div>
+          <div className="flex items-center gap-sm mb-xs">
+            <Heading>New prediction</Heading>
+          </div>
+          <p className="text-label-md font-label-md text-primary dark:text-inverse-primary flex gap-sm">Scan to begin analysis <FaCameraRetro /></p>
+        </div>
         <ImageInput
           setImage={imageHandler}
           loading={loading}

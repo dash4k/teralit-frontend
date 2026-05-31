@@ -86,7 +86,7 @@ const ImageInput = ({ setImage, loading, onUploadHandler }) => {
 
       {mode === 'camera' && (
         <>
-          <div className="relative flex justify-center w-full overflow-hidden rounded-lg border border-outline bg-black">
+          <div className="relative flex justify-center w-full overflow-hidden">
             {cameraError ? (
               <div className="w-auto h-64 flex items-center justify-center text-sm text-red-400">
                 {cameraError}
@@ -97,7 +97,7 @@ const ImageInput = ({ setImage, loading, onUploadHandler }) => {
                 autoPlay
                 playsInline
                 muted
-                className="w-auto max-h-80"
+                className="w-auto max-h-80 border-outline bg-surface dark:bg-inverse-surface p-2 rounded-lg border"
               />
             )}
 
@@ -105,7 +105,7 @@ const ImageInput = ({ setImage, loading, onUploadHandler }) => {
               type="button"
               onClick={() => setFacingMode((f) => (f === 'user' ? 'environment' : 'user'))}
               title="Flip camera"
-              className="absolute top-2 right-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
+              className="absolute top-2 right-2 lg:right-20 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
             >
               <FaRotate />
             </Button>
@@ -145,11 +145,11 @@ const ImageInput = ({ setImage, loading, onUploadHandler }) => {
 
       {mode === 'preview' && preview && (
         <>
-          <div className="w-full lg:w-180 overflow-hidden rounded-lg border border-outline">
+          <div className="w-full lg:w-180 overflow-hidden flex items-center justify-center">
             <img
               src={preview}
               alt="Preview"
-              className="w-full max-h-80 object-contain bg-black"
+              className="max-h-80 object-contain border-outline bg-surface dark:bg-inverse-surface p-2 rounded-lg border"
             />
           </div>
 

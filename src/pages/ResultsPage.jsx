@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { listSessions } from '../utils/api/session';
 import ResultContainer from '../components/ResultContainer.jsx';
 import LoadingIcon from '../components/LoadingIcon.jsx';
+import { FaFileMedical } from 'react-icons/fa6';
+import Heading from '../components/Heading.jsx';
 import toast from 'react-hot-toast';
 
 const ResultsPage = () => {
@@ -33,13 +35,23 @@ const ResultsPage = () => {
 
   return (
     <section className="w-full min-h-dvh lg:h-auto px-container-margin mx-auto flex flex-col justify-center items-center">
-      <div className="w-full h-auto flex flex-col items-center justify-center gap-container-margin">
-        {sessions.map((session) => (
-          <ResultContainer
-            session={session}
-            key={session.id}
-          />
-        ))}
+      <div className="w-full h-auto flex flex-col gap-lg">
+        <div>
+          <div className="flex items-center gap-sm mb-xs">
+            <Heading>My Results</Heading>
+          </div>
+          <p className="text-label-md font-label-md text-primary dark:text-inverse-primary flex gap-sm">Your past analysis sessions <FaFileMedical /></p>
+        </div>
+
+        <div className="w-full flex flex-col gap-sm">
+          {sessions.map((session) => (
+            <ResultContainer
+              session={session}
+              key={session.id}
+            />
+          ))}
+        </div>
+
       </div>
     </section>
   );

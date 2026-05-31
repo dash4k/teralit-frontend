@@ -12,6 +12,7 @@ import LoadingIcon from '../components/LoadingIcon.jsx';
 import Button from '../components/Button.jsx';
 import MessageContainer from '../components/MessagesContainer.jsx';
 import { agentAnswer, listMessages } from '../utils/api/message.js';
+import { CLASSIMAGE, CLASSLABEL } from '../utils/utilities/classification.js';
 
 const ResultDetailPage = ({ authedUser }) => {
   const { sessionId } = useParams();
@@ -88,38 +89,65 @@ const ResultDetailPage = ({ authedUser }) => {
     <section className="w-full min-h-dvh lg:h-auto px-container-margin mx-auto flex flex-col justify-center items-center lg:items-start">
       <div className="flex flex-col gap-lg">
         <Heading>Result</Heading>
-        <div className="w-70 px-4 py-1 border border-dashed border-outline flex flex-col gap-md">
-          <div className="flex flex-row justify-start items-center gap-container-margin">
-            <p className="w-20 text-label-bold font-label-bold text-on-surface dark:text-inverse-on-surface">Status:</p>
-            <SessionStatus status={session.status} />
-          </div>
-          <div className="flex flex-row justify-start items-center gap-container-margin">
-            <p className="w-20 text-label-bold font-label-bold text-on-surface dark:text-inverse-on-surface">Created:</p>
-            <BodyText>{new Date(session.createdAt).toLocaleString()}</BodyText>
-          </div>
-          <div className="flex flex-row justify-start items-center gap-container-margin">
-            <p className="w-20 text-label-bold font-label-bold text-on-surface dark:text-inverse-on-surface">Updated:</p>
-            <BodyText>{new Date(session.updatedAt).toLocaleString()}</BodyText>
-          </div>
+        <div className="grid grid-cols-3 gap-sm mb-lg">
+          {[
+            { label: 'Status', content: <SessionStatus status={session.status} /> },
+            { label: 'Created', content: <BodyText>{new Date(session.createdAt).toLocaleString('ID')}</BodyText> },
+            { label: 'Updated', content: <BodyText>{new Date(session.updatedAt).toLocaleString('ID')}</BodyText> },
+          ].map(({ label, content }) => (
+            <div
+              key={label}
+              className="bg-surface-container dark:bg-inverse-surface rounded p-md"
+            >
+              <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface uppercase tracking-widest mb-xs">{label}</p>
+              {content}
+            </div>
+          ))}
         </div>
-        <img
-          src={imageUrl}
-          alt="uploaded image"
-          className='border border-outline p-2'
-        />
-        <div className="w-full">
-          <div className="w-full px-4 py-1 border border-dashed border-outline flex flex-col gap-md">
-            <div className="flex flex-row justify-start items-center gap-container-margin">
-              <p className="w-20 text-label-bold font-label-bold text-on-surface dark:text-inverse-on-surface">Diagnosis:</p>
-              <BodyText>{classification.diagnosis}</BodyText>
+        <div className="grid grid-cols-2 gap-md mb-lg">
+          {[
+            { label: 'Uploaded Image', src: imageUrl, alt: 'uploaded image' },
+            { label: 'Reference Example', src: CLASSIMAGE[classification.diagnosis], alt: `Example of ${CLASSLABEL[classification.diagnosis]}` },
+          ].map(({ label, src, alt }) => (
+            <div
+              key={label}
+              className="border border-outline rounded-lg overflow-hidden"
+            >
+              <div className="bg-surface-container-low px-md py-xs border-b border-outline">
+                <p className="text-label-bold font-label-bold text-primary uppercase tracking-widest py-2">{label}</p>
+              </div>
+              <div className="p-md flex items-center justify-center bg-surface-dim">
+                <img
+                  src={src ?? ''}
+                  alt={alt}
+                  className="max-h-40 object-contain"
+                />
+              </div>
             </div>
-            <div className="flex flex-row justify-start items-center gap-container-margin">
-              <p className="w-20 text-label-bold font-label-bold text-on-surface dark:text-inverse-on-surface">Confidence:</p>
+          ))}
+        </div>
+        <div className="border border-outline rounded-lg overflow-hidden mb-lg">
+          <div className="bg-surface-container-low px-md py-xs border-b border-outline flex items-center gap-sm">
+            <p className="text-label-bold font-label-bold text-primary uppercase tracking-widest py-2">Classification Result</p>
+          </div>
+          <div className="grid grid-cols-3 gap-md p-md">
+            <div>
+              <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface mb-xs">Diagnosis</p>
+              <BodyText>{CLASSLABEL[classification.diagnosis] ?? 'Not found'}</BodyText>
+            </div>
+            <div>
+              <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface mb-xs">Confidence</p>
               <BodyText>{(classification.confidence * 100).toFixed(2)}%</BodyText>
+              <div className="h-1 bg-outline-variant rounded-full mt-xs overflow-hidden">
+                <div
+                  className="h-full bg-primary rounded-full"
+                  style={{ width: `${(classification.confidence * 100).toFixed(0)}%` }}
+                />
+              </div>
             </div>
-            <div className="flex flex-row justify-start items-center gap-container-margin">
-              <p className="w-20 text-label-bold font-label-bold text-on-surface dark:text-inverse-on-surface">Risk Level:</p>
-              <BodyText>{classification.riskLevel}</BodyText>
+            <div>
+              <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface mb-xs">Risk Level</p>
+              <BodyText>{classification.riskLevel ?? 'Not found'}</BodyText>
             </div>
           </div>
         </div>
@@ -127,7 +155,7 @@ const ResultDetailPage = ({ authedUser }) => {
       <div className={`fixed bottom-0 right-0 flex ${chatOpened ? 'flex-col' : 'items-start justify-center'} gap-sm ${chatOpened ? 'w-70 h-auto lg:w-100 lg:h-100' : 'w-30'} border border-outline bg-surface dark:bg-inverse-surface transition-all`}>
         {!chatOpened && (
           <div
-            className='flex items-center justify-center gap-sm py-1'
+            className='flex items-center justify-center gap-sm py-1 text-on-surface-variant dark:text-inverse-on-surface'
             onClick={toggleChat}
           >
             <FaBrain />
