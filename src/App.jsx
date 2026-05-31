@@ -100,6 +100,11 @@ function App() {
 
   if (initializing) return null;
 
+  const path = new URLSearchParams(window.location.search).get('path');
+  if (path) {
+    window.history.replaceState(null, '', path);
+  }
+
   return (
     <ThemeContext.Provider value={theme}>
       <ToasterWrapper />
