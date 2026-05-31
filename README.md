@@ -1,18 +1,94 @@
-# React + Vite
+# Teralit Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern React + Vite frontend application with Tailwind CSS, TypeScript, and ESLint.
 
-Currently, two official plugins are available:
+## Tech Stack
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **React** 19.2.6 - A JavaScript library for building user interfaces
+- **Vite** 8.0.12 - Next generation frontend tooling for faster development
+- **Tailwind CSS** 4.3.0 - Utility-first CSS framework
+- **TypeScript** - Type-safe JavaScript
+- **React Router** 7.15.1 - Client-side routing
+- **React Hot Toast** 2.6.0 - Notifications
+- **React Icons** 5.6.0 - Icon library
 
-## React Compiler
+## Getting Started
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+### Prerequisites
 
-Note: This will impact Vite dev & build performances.
+- Node.js (v18 or higher recommended)
 
-## Expanding the ESLint configuration
+### Installation
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```bash
+npm install
+```
+
+### Development
+
+Start the development server with HMR:
+
+```bash
+npm run dev
+```
+
+The app will be available at `http://localhost:5173`
+
+### Build
+
+Build for production:
+
+```bash
+npm run build
+```
+
+### Preview
+
+Preview the production build locally:
+
+```bash
+npm run preview
+```
+
+## Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run lint` - Run ESLint and fix issues
+- `npm run preview` - Preview production build
+
+## Code Quality
+
+This project uses:
+
+- **ESLint** - With React-specific rules and Dicode Academy configuration
+- **React Compiler** - Enabled for automatic memoization optimization
+- **Babel** - JavaScript transpiler with React Compiler preset
+
+### Linting
+
+Run ESLint:
+
+```bash
+npm run lint
+```
+
+## Project Structure
+
+```
+src/
+├── components/     # React components
+├── pages/         # Page components
+├── styles/        # CSS files
+└── App.jsx        # Root component
+```
+
+## Features
+
+- ✨ Fast refresh with Vite HMR
+- 🎨 Styled with Tailwind CSS
+- 🔐 Type-safe with TypeScript
+- 📱 Responsive design
+- 🧭 Client-side routing with React Router
+- 📢 Toast notifications
+- 🎯 Optimized with React Compiler
