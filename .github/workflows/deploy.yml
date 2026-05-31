@@ -32,6 +32,10 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          VITE_BACKEND_URL: ${{ secrets.VITE_BACKEND_URL }}
+          VITE_THEME_STATE_KEY: ${{ secrets.VITE_THEME_STATE_KEY }}
+          VITE_ACCESS_TOKEN_KEY: ${{ secrets.VITE_ACCESS_TOKEN_KEY }}
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
