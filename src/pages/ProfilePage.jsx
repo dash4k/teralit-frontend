@@ -88,52 +88,74 @@ const ProfilePage = ({ authedUser, logout }) => {
   return (
     <section className="w-full min-h-dvh lg:h-auto px-container-margin mx-auto flex flex-col justify-center items-center lg:items-start">
       <div className="flex flex-col gap-lg">
-        <Heading>Profile</Heading>
-
-        <div className="flex flex-col gap-4 p-4 rounded-xl border border-outline bg-surface dark:bg-inverse-surface">
-          <h2 className="text-title-md font-display font-bold text-on-surface dark:text-inverse-on-surface">
-                        Personal Info
-          </h2>
-          <Input
-            id='name'
-            type='text'
-            value={name}
-            setValue={setName}
-            label='Name'
-            placeholder=''
-          />
-          <div className="w-full">
+        <div>
+          <div className="flex items-center gap-sm mb-xs">
+            <Heading>Profile</Heading>
+          </div>
+          <p className="text-label-md font-label-md text-on-surface-variant dark:text-inverse-on-surface">Manage your account details</p>
+        </div>
+        <div className="flex items-center gap-md bg-surface-container dark:bg-inverse-surface rounded-lg px-md py-sm">
+          <div className="w-13 h-13 rounded-full bg-primary flex items-center justify-center text-on-primary dark:text-primary dark:bg-inverse-primary font-medium text-headline-md shrink-0">
+            {authedUser.name?.charAt(0).toUpperCase()}
+          </div>
+          <div>
+            <p className="text-body-md font-medium text-on-surface dark:text-inverse-on-surface">{authedUser.name}</p>
+            <p className="text-label-md text-on-surface-variant dark:text-inverse-on-surface">{authedUser.email}</p>
+          </div>
+        </div>
+        <div className="border border-outline rounded-lg overflow-hidden bg-surface dark:bg-inverse-surface">
+          <div className="bg-surface-container-low px-md py-xs border-b border-outline flex items-center gap-sm">
+            <p className="text-label-bold font-label-bold text-primary uppercase tracking-widest py-2">Personal Info</p>
+          </div>
+          <div className="p-md flex flex-col gap-md">
+            <Input
+              id='name'
+              type='text'
+              value={name}
+              setValue={setName}
+              label='Name'
+              placeholder=''
+            />
             <Button
               loading={editLoading}
               disabled={editLoading}
               fullWidth
               onClick={onEditProfile}
-            >Change Name</Button>
+            >
+              Save Changes
+            </Button>
+            <div className="border-t border-outline pt-md flex flex-col gap-xs">
+              <Input
+                id='email'
+                type='email'
+                value={authedUser.email}
+                setValue={() => {}}
+                label='Email'
+                placeholder=''
+                disabled
+              />
+              <p className="text-label-md font-label-md text-on-surface-variant dark:text-inverse-on-surface">Email cannot be changed</p>
+            </div>
           </div>
-          <Input
-            id='email'
-            type='email'
-            value={authedUser.email}
-            setValue={() => {}}
-            label='Email'
-            placeholder=''
-            disabled
-          />
         </div>
-
-        <div className="flex flex-col gap-4 p-4 rounded-xl border border-error bg-surface dark:bg-inverse-surface">
-          <h2 className="text-title-md font-display font-bold text-error">
-                        Danger Zone
-          </h2>
-          <BodyText>Permanently delete your account and all associated data. This action cannot be undone.</BodyText>
-          <div>
+        <div className="border border-error rounded-lg overflow-hidden bg-surface dark:bg-inverse-surface">
+          <div className="bg-error-container px-md py-xs border-b border-error flex items-center gap-sm">
+            <p className="text-label-bold font-label-bold text-on-error-container uppercase tracking-widest py-2">Danger Zone</p>
+          </div>
+          <div className="p-md flex flex-col gap-md">
+            <div>
+              <p className="text-body-md font-medium text-on-surface dark:text-inverse-on-surface mb-xs">Delete your account</p>
+              <BodyText>Permanently removes your account and all associated data. This action cannot be undone.</BodyText>
+            </div>
             <Button
               loading={deleteLoading}
               disabled={deleteLoading}
               onClick={onDeleteAccount}
               fullWidth={false}
               color="error"
-            >Delete Account</Button>
+            >
+              Delete Account
+            </Button>
           </div>
         </div>
 
