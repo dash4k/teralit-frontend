@@ -12,6 +12,7 @@ import LoadingIcon from '../components/LoadingIcon.jsx';
 import Button from '../components/Button.jsx';
 import MessageContainer from '../components/MessagesContainer.jsx';
 import { agentAnswer, listMessages } from '../utils/api/message.js';
+import { CLASSIMAGE, CLASSLABEL } from '../utils/utilities/classification.js';
 
 const ResultDetailPage = ({ authedUser }) => {
   const { sessionId } = useParams();
@@ -103,24 +104,30 @@ const ResultDetailPage = ({ authedUser }) => {
           </div>
         </div>
         <img
-          src={imageUrl}
+          src={imageUrl ?? ''}
           alt="uploaded image"
           className='border border-outline p-2'
         />
-        <div className="w-full">
+        <div className="w-full flex flex-row items-center justify-evenly">
           <div className="w-full px-4 py-1 border border-dashed border-outline flex flex-col gap-md">
             <div className="flex flex-row justify-start items-center gap-container-margin">
               <p className="w-20 text-label-bold font-label-bold text-on-surface dark:text-inverse-on-surface">Diagnosis:</p>
-              <BodyText>{classification.diagnosis}</BodyText>
+              <BodyText>{CLASSLABEL[classification.diagnosis] ?? 'Not found'}</BodyText>
             </div>
             <div className="flex flex-row justify-start items-center gap-container-margin">
               <p className="w-20 text-label-bold font-label-bold text-on-surface dark:text-inverse-on-surface">Confidence:</p>
-              <BodyText>{(classification.confidence * 100).toFixed(2)}%</BodyText>
+              <BodyText>{(classification.confidence * 100).toFixed(2) ?? '?'}%</BodyText>
             </div>
             <div className="flex flex-row justify-start items-center gap-container-margin">
               <p className="w-20 text-label-bold font-label-bold text-on-surface dark:text-inverse-on-surface">Risk Level:</p>
-              <BodyText>{classification.riskLevel}</BodyText>
+              <BodyText>{classification.riskLevel ?? 'Not found'}</BodyText>
             </div>
+          </div>
+          <div className="p-2 border border-outline border-dashed">
+            <img
+              src={CLASSIMAGE[classification.diagnosis] ?? ''}
+              alt={`Example image of ${CLASSLABEL[classification.diagnosis]}`}
+            />
           </div>
         </div>
       </div>
