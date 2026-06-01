@@ -95,7 +95,7 @@ const ProfilePage = ({ authedUser, logout }) => {
           <p className="text-label-md font-label-md text-on-surface-variant dark:text-inverse-on-surface">Manage your account details</p>
         </div>
         <div className="flex items-center gap-md bg-surface-container dark:bg-inverse-surface rounded-lg px-md py-sm">
-          <div className="w-13 h-13 rounded-full bg-primary flex items-center justify-center text-on-primary dark:text-primary dark:bg-inverse-primary font-medium text-headline-md shrink-0">
+          <div className="w-13 h-13 rounded-full bg-primary flex items-center justify-center text-on-primary dark:text-primary dark:bg-inverse-primary font-headline-md text-headline-md shrink-0">
             {authedUser.name?.charAt(0).toUpperCase()}
           </div>
           <div>
@@ -104,8 +104,8 @@ const ProfilePage = ({ authedUser, logout }) => {
           </div>
         </div>
         <div className="border border-outline rounded-lg overflow-hidden bg-surface dark:bg-inverse-surface">
-          <div className="bg-surface-container-low px-md py-xs border-b border-outline flex items-center gap-sm">
-            <p className="text-label-bold font-label-bold text-primary uppercase tracking-widest py-2">Personal Info</p>
+          <div className="bg-surface-container-low dark:bg-primary px-md py-xs border-b border-outline flex items-center gap-sm">
+            <p className="text-label-bold font-label-bold text-primary dark:text-inverse-on-surface uppercase tracking-widest py-2">Personal Info</p>
           </div>
           <div className="p-md flex flex-col gap-md">
             <Input
@@ -139,8 +139,8 @@ const ProfilePage = ({ authedUser, logout }) => {
           </div>
         </div>
         <div className="border border-error rounded-lg overflow-hidden bg-surface dark:bg-inverse-surface">
-          <div className="bg-error-container px-md py-xs border-b border-error flex items-center gap-sm">
-            <p className="text-label-bold font-label-bold text-on-error-container uppercase tracking-widest py-2">Danger Zone</p>
+          <div className="bg-error-container px-md py-xs border-b border-error dark:bg-error flex items-center gap-sm">
+            <p className="text-label-bold font-label-bold text-on-error-container dark:text-inverse-on-surface uppercase tracking-widest py-2">Danger Zone</p>
           </div>
           <div className="p-md flex flex-col gap-md">
             <div>
