@@ -12,7 +12,7 @@ import LoadingIcon from '../components/LoadingIcon.jsx';
 import Button from '../components/Button.jsx';
 import MessageContainer from '../components/MessagesContainer.jsx';
 import { agentAnswer, listMessages } from '../utils/api/message.js';
-import { CLASSIMAGE, CLASSLABEL } from '../utils/utilities/classification.js';
+import { CLASSIMAGE, CLASSLABEL, DIAGNOSISMAP } from '../utils/utilities/classification.js';
 
 const ResultDetailPage = ({ authedUser }) => {
   const { sessionId } = useParams();
@@ -97,7 +97,7 @@ const ResultDetailPage = ({ authedUser }) => {
           ].map(({ label, content }) => (
             <div
               key={label}
-              className="bg-surface-container dark:bg-inverse-surface rounded p-md"
+              className="bg-surface-container dark:bg-inverse-surface rounded p-md flex flex-col items-start justify-start"
             >
               <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface uppercase tracking-widest mb-xs">{label}</p>
               {content}
@@ -113,41 +113,48 @@ const ResultDetailPage = ({ authedUser }) => {
               key={label}
               className="border border-outline rounded-lg overflow-hidden"
             >
-              <div className="bg-surface-container-low px-md py-xs border-b border-outline">
-                <p className="text-label-bold font-label-bold text-primary uppercase tracking-widest py-2">{label}</p>
+              <div className="bg-surface-container-low dark:bg-inverse-surface px-md py-xs border-b border-outline">
+                <p className="text-label-bold font-label-bold text-primary dark:text-inverse-primary uppercase tracking-widest py-2">{label}</p>
               </div>
-              <div className="p-md flex items-center justify-center bg-surface-dim">
+              <div className="p-md flex items-center justify-center bg-surface-dim dark:bg-gray-900 h-full">
                 <img
                   src={src ?? ''}
                   alt={alt}
-                  className="max-h-40 object-contain"
+                  className="max-h-40 object-contain pb-8"
                 />
               </div>
             </div>
           ))}
         </div>
         <div className="border border-outline rounded-lg overflow-hidden mb-lg">
-          <div className="bg-surface-container-low px-md py-xs border-b border-outline flex items-center gap-sm">
-            <p className="text-label-bold font-label-bold text-primary uppercase tracking-widest py-2">Classification Result</p>
+          <div className="bg-surface-container-low dark:bg-inverse-surface px-md py-xs border-b border-outline flex items-center gap-sm">
+            <p className="text-label-bold font-label-bold text-primary dark:text-inverse-primary uppercase tracking-widest py-2">Classification Result</p>
           </div>
-          <div className="grid grid-cols-3 gap-md p-md">
-            <div>
-              <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface mb-xs">Diagnosis</p>
-              <BodyText>{CLASSLABEL[classification.diagnosis] ?? 'Not found'}</BodyText>
-            </div>
-            <div>
-              <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface mb-xs">Confidence</p>
-              <BodyText>{(classification.confidence * 100).toFixed(2)}%</BodyText>
-              <div className="h-1 bg-outline-variant rounded-full mt-xs overflow-hidden">
-                <div
-                  className="h-full bg-primary rounded-full"
-                  style={{ width: `${(classification.confidence * 100).toFixed(0)}%` }}
-                />
+          <div className="grid grid-rows-[auto_auto] gap-lg p-md max-w-150 ">
+            <div className='grid grid-cols-3 gap-xl px-lg'>
+              <div>
+                <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface mb-xs">Diagnosis</p>
+                <BodyText>{CLASSLABEL[classification.diagnosis] ?? 'Not found'}</BodyText>
+              </div>
+              <div>
+                <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface mb-xs">Confidence</p>
+                <BodyText>{(classification.confidence * 100).toFixed(2)}%</BodyText>
+                <div className="h-1 bg-outline-variant rounded-full mt-xs overflow-hidden">
+                  <div
+                    className="h-full bg-primary rounded-full"
+                    style={{ width: `${(classification.confidence * 100).toFixed(0)}%` }}
+                  />
+                </div>
+              </div>
+              <div className='flex justify-center items-center'>
+                <div className="flex flex-col">
+                  <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface mb-xs">Risk Level</p>
+                  <BodyText>{classification.riskLevel ? classification.riskLevel[0].toUpperCase() + classification.riskLevel.slice(1) : 'Not found'}</BodyText>
+                </div>
               </div>
             </div>
-            <div>
-              <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface mb-xs">Risk Level</p>
-              <BodyText>{classification.riskLevel ?? 'Not found'}</BodyText>
+            <div className='flex flex-col items-start justify-start px-lg'>
+              <BodyText>{`"${DIAGNOSISMAP[classification.diagnosis] ?? 'Not found'}"`}</BodyText>
             </div>
           </div>
         </div>
@@ -166,7 +173,7 @@ const ResultDetailPage = ({ authedUser }) => {
           <>
             <div
               onClick={toggleChat}
-              className="px-3 py-1 mb-auto w-full flex items-center justify-start gap-lg border-b border-outline"
+              className="px-3 py-1 mb-auto w-full flex items-center justify-start gap-lg border-b border-outline text-on-surface dark:text-inverse-on-surface"
             >
               <FaBrain />
               <BodyText>Alit Chatbot</BodyText>
@@ -175,7 +182,7 @@ const ResultDetailPage = ({ authedUser }) => {
               <MessageContainer messages={messages} />
             </section>
             <form
-              className='flex justify-center items-start bg-surface dark:bg-inverse-surface'
+              className='flex justify-center items-start bg-surface dark:bg-inverse-surface text-on-surface dark:text-inverse-on-surface'
               onSubmit={askAgent}
             >
               <input
