@@ -98,9 +98,9 @@ const ProfilePage = ({ authedUser, logout }) => {
           <div className="w-13 h-13 rounded-full bg-primary flex items-center justify-center text-on-primary dark:text-primary dark:bg-inverse-primary font-headline-md text-headline-md shrink-0">
             {authedUser.name?.charAt(0).toUpperCase()}
           </div>
-          <div>
-            <p className="text-body-md font-medium text-on-surface dark:text-inverse-on-surface">{authedUser.name}</p>
-            <p className="text-label-md text-on-surface-variant dark:text-inverse-on-surface">{authedUser.email}</p>
+          <div className='max-w-100'>
+            <p className="text-body-md font-medium text-on-surface dark:text-inverse-on-surface truncate w-full">{authedUser.name}</p>
+            <p className="text-label-md text-on-surface-variant dark:text-inverse-on-surface truncate w-full">{authedUser.email}</p>
           </div>
         </div>
         <div className="border border-outline rounded-lg overflow-hidden bg-surface dark:bg-inverse-surface">

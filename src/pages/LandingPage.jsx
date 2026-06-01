@@ -5,10 +5,10 @@ import Button from '../components/Button.jsx';
 import { FaSprayCan, FaClipboardList, FaCamera, FaMicrochip, FaRobot, FaShieldHalved } from 'react-icons/fa6';
 
 const CONDITIONS = [
-  { label: 'Chicken Pox', risk: 'medium' },
-  { label: 'Melanoma', risk: 'high' },
-  { label: 'Eczema', risk: 'high' },
-  { label: 'Hives', risk: 'medium' },
+  { label: 'Chicken Pox', risk: 'medium', url: '/classifications/chickenPox.jpg' },
+  { label: 'Melanoma', risk: 'high', url: '/classifications/melanoma.jpg' },
+  { label: 'Eczema', risk: 'high', url: '/classifications/eczema.jpg' },
+  { label: 'Hives', risk: 'medium', url: '/classifications/hives.jpg' },
 ];
 
 const RISK_COLOR = {
@@ -114,14 +114,21 @@ const LandingPage = () => {
         </div>
         <div className="mb-xl">
           <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface uppercase tracking-widest mb-md">What we detect</p>
-          <div className="grid grid-cols-2 gap-sm lg:grid-cols-3">
-            {CONDITIONS.map(({ label, risk }) => (
+          <div className="grid grid-cols-2 gap-sm">
+            {CONDITIONS.map(({ label, risk, url }) => (
               <div
                 key={label}
-                className="bg-surface-container dark:bg-inverse-surface rounded flex items-center gap-sm px-md py-sm"
+                className="w-auto bg-surface-container dark:bg-inverse-surface rounded flex justify-center items-center gap-xs px-md py-sm"
               >
-                <span className={`w-2 h-2 rounded-full shrink-0 ${RISK_COLOR[risk]}`} />
-                <BodyText>{label}</BodyText>
+                <div className="w-full flex flex-col gap-xs px-md py-sm">
+                  <div className="flex-1 flex flex-row items-center gap-sm px-md pt-sm">
+                    <span className={`w-2 h-2 rounded-full shrink-0 ${RISK_COLOR[risk]}`} />
+                    <BodyText>{label}</BodyText>
+                  </div>
+                  <div className="max-w-50 p-4">
+                    <img src={url} alt={`${label} example`} className='object-cover' />
+                  </div>
+                </div>
               </div>
             ))}
           </div>
