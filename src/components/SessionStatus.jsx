@@ -6,7 +6,7 @@ const SessionStatus = ({ status }) => {
   };
 
   return (
-    <p className={`w-auto p-1 ${COLOR[status]} rounded-DEFAULT font-label-bold text-label-bold`}>
+    <p className={`w-auto py-1 lg:px-2 ${COLOR[status]} rounded-DEFAULT font-label-bold text-label-bold`}>
       {status.toUpperCase()}
     </p>
   );
