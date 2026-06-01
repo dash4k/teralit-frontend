@@ -159,41 +159,52 @@ const ResultDetailPage = ({ authedUser }) => {
           </div>
         </div>
       </div>
-      <div className={`fixed bottom-0 right-0 flex ${chatOpened ? 'flex-col' : 'items-start justify-center'} gap-sm ${chatOpened ? 'w-70 h-auto lg:w-100 lg:h-100' : 'w-30'} border border-outline bg-surface dark:bg-inverse-surface transition-all`}>
-        {!chatOpened && (
-          <div
-            className='flex items-center justify-center gap-sm py-1 text-on-surface-variant dark:text-inverse-on-surface'
-            onClick={toggleChat}
-          >
-            <FaBrain />
-            <BodyText>Alit Chatbot</BodyText>
+      <div className={`fixed bottom-0 right-0 flex flex-col border border-outline rounded-tl-lg overflow-hidden bg-surface dark:bg-gray-800 transition-all duration-300 shadow-lg ${chatOpened ? 'w-70 h-100 lg:w-100 lg:h-100' : 'w-36 h-auto'}`}>
+
+        {/* Header — always visible, toggles open/close */}
+        <div
+          onClick={toggleChat}
+          className="bg-primary px-md py-sm flex items-center justify-between cursor-pointer shrink-0"
+        >
+          <div className="flex items-center gap-sm">
+            <div className="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center">
+              <FaBrain className="text-on-primary text-xs" />
+            </div>
+            {chatOpened && (
+              <div>
+                <p className="text-label-bold font-label-bold text-on-primary">Alit Chatbot</p>
+                <p className="text-label-md font-label-md text-on-primary opacity-60">AI Assistant</p>
+              </div>
+            )}
+            {!chatOpened && (
+              <p className="text-label-bold font-label-bold text-on-primary">Alit</p>
+            )}
           </div>
-        )}
+          <FaCircleChevronRight className={`text-on-primary opacity-70 transition-transform duration-300 ${chatOpened ? 'rotate-90' : '-rotate-90'}`} />
+        </div>
+
+        {/* Messages */}
         {chatOpened && (
           <>
-            <div
-              onClick={toggleChat}
-              className="px-3 py-1 mb-auto w-full flex items-center justify-start gap-lg border-b border-outline text-on-surface dark:text-inverse-on-surface"
-            >
-              <FaBrain />
-              <BodyText>Alit Chatbot</BodyText>
-            </div>
-            <section className='flex-1 w-full'>
+            <section className="flex-1 overflow-hidden">
               <MessageContainer messages={messages} />
             </section>
+
+            {/* Input */}
             <form
-              className='flex justify-center items-start bg-surface dark:bg-inverse-surface text-on-surface dark:text-inverse-on-surface'
               onSubmit={askAgent}
+              className="flex items-center gap-xs p-xs border-t border-outline bg-surface-container dark:bg-inverse-surface shrink-0"
             >
               <input
                 type="text"
                 value={chat}
                 onChange={onChatChange}
                 disabled={chatLoading}
-                className='border-t border-outline p-2 flex-1'
+                placeholder="Ask about your diagnosis…"
+                className="flex-1 text-body-sm px-sm py-xs h-full rounded border border-outline bg-surface text-on-surface dark:bg-gray-900 dark:text-inverse-on-surface focus:outline-none focus:border-primary"
               />
               <Button
-                className='rounded-none h-full py-4 lg:py-2'
+                className="rounded w-8 h-8 shrink-0 flex items-center justify-center p-0"
                 disabled={chatLoading}
                 loading={chatLoading}
                 onClick={askAgent}
