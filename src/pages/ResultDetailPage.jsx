@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { viewSession } from '../utils/api/session';
 import { viewImage } from '../utils/api/session-image';
 import { viewPrediction } from '../utils/api/classification-result';
@@ -15,6 +15,7 @@ import { agentAnswer, listMessages } from '../utils/api/message.js';
 import { CLASSIMAGE, CLASSLABEL, DIAGNOSISMAP } from '../utils/utilities/classification.js';
 
 const ResultDetailPage = ({ authedUser }) => {
+  const navigate = useNavigate();
   const { sessionId } = useParams();
   if (!sessionId) return null;
 
@@ -33,6 +34,9 @@ const ResultDetailPage = ({ authedUser }) => {
 
   const askAgent = async (e) => {
     e.preventDefault();
+    if (chat === '') {
+      return;
+    }
     const content = chat;
     setChat('');
     setChatLoading(true);
@@ -52,6 +56,7 @@ const ResultDetailPage = ({ authedUser }) => {
     const fetchData = async () => {
       try {
         const { session } = await viewSession({ id: sessionId });
+
         const { imageUrl } = await viewImage({ sessionId });
         const { classification } = await viewPrediction({ sessionId });
         const { messages: fetchedMessages } = await listMessages({ sessionId });
@@ -80,6 +85,8 @@ const ResultDetailPage = ({ authedUser }) => {
     fetchData();
   }, [sessionId]);
 
+  if (!session) navigate('/invalid-sessionId');
+
   if (loading) return (
     <section className="w-full min-h-dvh lg:h-auto px-container-margin mx-auto flex flex-col justify-center items-center text-on-surface dark:text-inverse-on-surface">
       <LoadingIcon />
@@ -91,9 +98,9 @@ const ResultDetailPage = ({ authedUser }) => {
         <Heading>Result</Heading>
         <div className="grid grid-cols-3 gap-sm mb-lg">
           {[
-            { label: 'Status', content: <SessionStatus status={session.status} /> },
-            { label: 'Created', content: <BodyText>{new Date(session.createdAt).toLocaleString('ID')}</BodyText> },
-            { label: 'Updated', content: <BodyText>{new Date(session.updatedAt).toLocaleString('ID')}</BodyText> },
+            { label: 'Status', content: <SessionStatus status={session?.status ?? ''} /> },
+            { label: 'Created', content: <BodyText>{new Date(session?.createdAt ?? '').toLocaleString('ID')}</BodyText> },
+            { label: 'Updated', content: <BodyText>{new Date(session?.updatedAt ?? '').toLocaleString('ID')}</BodyText> },
           ].map(({ label, content }) => (
             <div
               key={label}
@@ -107,7 +114,7 @@ const ResultDetailPage = ({ authedUser }) => {
         <div className="grid grid-cols-2 gap-md mb-lg">
           {[
             { label: 'Uploaded Image', src: imageUrl, alt: 'uploaded image' },
-            { label: 'Reference Example', src: CLASSIMAGE[classification.diagnosis], alt: `Example of ${CLASSLABEL[classification.diagnosis]}` },
+            { label: 'Reference Example', src: CLASSIMAGE[classification?.diagnosis] ?? '', alt: `Example of ${CLASSLABEL[classification?.diagnosis] ?? ''}` },
           ].map(({ label, src, alt }) => (
             <div
               key={label}
@@ -134,27 +141,27 @@ const ResultDetailPage = ({ authedUser }) => {
             <div className='grid grid-cols-3 gap-xl px-lg'>
               <div>
                 <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface mb-xs">Diagnosis</p>
-                <BodyText>{CLASSLABEL[classification.diagnosis] ?? 'Not found'}</BodyText>
+                <BodyText>{CLASSLABEL[classification?.diagnosis] ?? 'Not found'}</BodyText>
               </div>
               <div>
                 <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface mb-xs">Confidence</p>
-                <BodyText>{(classification.confidence * 100).toFixed(2)}%</BodyText>
+                <BodyText>{((classification?.confidence ?? 0) * 100).toFixed(2)}%</BodyText>
                 <div className="h-1 bg-outline-variant rounded-full mt-xs overflow-hidden">
                   <div
                     className="h-full bg-primary rounded-full"
-                    style={{ width: `${(classification.confidence * 100).toFixed(0)}%` }}
+                    style={{ width: `${((classification?.confidence ?? 0) * 100).toFixed(0)}%` }}
                   />
                 </div>
               </div>
               <div className='flex justify-center items-center'>
                 <div className="flex flex-col">
                   <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface mb-xs">Risk Level</p>
-                  <BodyText>{classification.riskLevel ? classification.riskLevel[0].toUpperCase() + classification.riskLevel.slice(1) : 'Not found'}</BodyText>
+                  <BodyText>{classification?.riskLevel ? classification?.riskLevel[0].toUpperCase() + classification?.riskLevel.slice(1) : 'Not found'}</BodyText>
                 </div>
               </div>
             </div>
             <div className='flex flex-col items-start justify-start px-lg'>
-              <BodyText>{`"${DIAGNOSISMAP[classification.diagnosis] ?? 'Not found'}"`}</BodyText>
+              <BodyText>{`"${DIAGNOSISMAP[classification?.diagnosis] ?? 'Not found'}"`}</BodyText>
             </div>
           </div>
         </div>
