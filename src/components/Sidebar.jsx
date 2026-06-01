@@ -25,6 +25,8 @@ const Sidebar = ({
   collapsed,
   setCollapsed,
 }) => {
+  if (!authedUser) return null;
+
   const theme = useContext(ThemeContext);
   const toggleCollapsed = () => setCollapsed((prev) => !prev);
 
