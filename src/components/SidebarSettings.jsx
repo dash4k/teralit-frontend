@@ -19,7 +19,7 @@ const SidebarSettings = ({
   };
   return (
     <div
-      className={`${settingsVisibility ? '' : 'hidden'} fixed bottom-15 left-5 z-50 rounded-md bg-background dark:bg-on-background w-50 h-auto flex flex-col justify-center items-center transition-opacity duration-75 border-outline border`}
+      className={`${settingsVisibility ? '' : 'hidden'} fixed bottom-15 left-5 z-100 rounded-md bg-background dark:bg-on-background w-50 h-auto flex flex-col justify-center items-center transition-opacity duration-75 border-outline border`}
     >
       <Link
         to='/profile'

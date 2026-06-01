@@ -36,7 +36,7 @@ const LandingPage = () => {
           <div className="flex flex-col gap-sm">
             <Heading>Skin health insights, in seconds</Heading>
             <BodyText>
-              Alit uses deep learning to classify skin lesions from a photo — giving you a diagnosis,
+              Teralit uses deep learning to classify skin lesions from a photo — giving you a diagnosis,
               confidence score, and risk level instantly.
             </BodyText>
           </div>
@@ -56,8 +56,6 @@ const LandingPage = () => {
             </Button>
           </div>
         </div>
-
-        {/* Sample result card */}
         <div className="border border-outline rounded-lg overflow-hidden mb-xl">
           <div className="bg-primary px-md py-xs flex items-center justify-between">
             <p className="text-label-bold font-label-bold text-on-primary uppercase tracking-widest">Sample result</p>
@@ -71,10 +69,10 @@ const LandingPage = () => {
             ].map(({ label, value }) => (
               <div
                 key={label}
-                className="bg-surface-container rounded p-sm"
+                className="bg-surface-container dark:bg-inverse-surface rounded p-sm"
               >
-                <p className="text-label-bold font-label-bold text-on-surface-variant uppercase tracking-widest mb-xs">{label}</p>
-                <p className="text-body-md font-medium text-on-surface">{value}</p>
+                <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface uppercase tracking-widest mb-xs">{label}</p>
+                <p className="text-body-md font-medium text-on-surface dark:text-inverse-on-surface">{value}</p>
               </div>
             ))}
           </div>
@@ -83,7 +81,7 @@ const LandingPage = () => {
               <div className="w-7 h-7 rounded-full bg-primary flex items-center justify-center shrink-0 mt-xs">
                 <FaRobot className="text-on-primary text-xs" />
               </div>
-              <div className="bg-surface-container-low rounded-lg px-md py-sm flex-1">
+              <div className="bg-surface-container-low dark:bg-inverse-surface rounded-lg px-md py-sm flex-1">
                 <BodyText>
                   This lesion appears benign. Melanocytic nevi are common moles. Regular monitoring
                   is advised — consult a dermatologist if you notice changes in size or color.
@@ -92,10 +90,8 @@ const LandingPage = () => {
             </div>
           </div>
         </div>
-
-        {/* How it works */}
         <div className="mb-xl">
-          <p className="text-label-bold font-label-bold text-on-surface-variant uppercase tracking-widest mb-md">How it works</p>
+          <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface uppercase tracking-widest mb-md">How it works</p>
           <div className="flex flex-col gap-0">
             {STEPS.map(({ icon, title, desc }, i) => (
               <div
@@ -109,22 +105,20 @@ const LandingPage = () => {
                   {i < STEPS.length - 1 && <div className="w-px flex-1 bg-outline-variant min-h-6 mt-xs" />}
                 </div>
                 <div className="pt-xs pb-lg">
-                  <p className="text-body-md font-medium text-on-surface mb-xs">{title}</p>
+                  <p className="text-body-md font-medium text-on-surface dark:text-inverse-on-surface mb-xs">{title}</p>
                   <BodyText>{desc}</BodyText>
                 </div>
               </div>
             ))}
           </div>
         </div>
-
-        {/* What we detect */}
         <div className="mb-xl">
-          <p className="text-label-bold font-label-bold text-on-surface-variant uppercase tracking-widest mb-md">What we detect</p>
+          <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface uppercase tracking-widest mb-md">What we detect</p>
           <div className="grid grid-cols-2 gap-sm lg:grid-cols-3">
             {CONDITIONS.map(({ label, risk }) => (
               <div
                 key={label}
-                className="bg-surface-container rounded flex items-center gap-sm px-md py-sm"
+                className="bg-surface-container dark:bg-inverse-surface rounded flex items-center gap-sm px-md py-sm"
               >
                 <span className={`w-2 h-2 rounded-full shrink-0 ${RISK_COLOR[risk]}`} />
                 <BodyText>{label}</BodyText>
@@ -132,19 +126,16 @@ const LandingPage = () => {
             ))}
           </div>
         </div>
-
-        {/* Disclaimer */}
-        <div className="bg-surface-container-low border border-primary-fixed-dim rounded-lg p-md flex gap-sm items-start mb-xxl">
-          <FaShieldHalved className="text-primary shrink-0 mt-xs" />
+        <div className="bg-surface-container-low dark:bg-inverse-surface border border-primary-fixed-dim rounded-lg p-md flex gap-sm items-start mb-xxl">
+          <FaShieldHalved className="text-primary dark:text-inverse-primary shrink-0 mt-xs" />
           <div>
-            <p className="text-label-bold font-label-bold text-primary mb-xs">For informational use only</p>
+            <p className="text-label-bold font-label-bold text-primary dark:text-inverse-primary mb-xs">For informational use only</p>
             <BodyText>
               Alit is not a substitute for professional medical advice. Always consult a qualified
               dermatologist for any skin concerns.
             </BodyText>
           </div>
         </div>
-
       </div>
     </section>
   );

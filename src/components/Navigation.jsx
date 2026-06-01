@@ -12,7 +12,9 @@ const Navigation = ({
   collapsed,
   setCollapsed,
   onDashboard,
+  onValidRoutes,
 }) => {
+  if (!onValidRoutes) return null;
   if (onDashboard) return (
     <Sidebar
       settingsVisibility={settingsVisibility}

@@ -12,7 +12,7 @@ import LoadingIcon from '../components/LoadingIcon.jsx';
 import Button from '../components/Button.jsx';
 import MessageContainer from '../components/MessagesContainer.jsx';
 import { agentAnswer, listMessages } from '../utils/api/message.js';
-import { CLASSIMAGE, CLASSLABEL } from '../utils/utilities/classification.js';
+import { CLASSIMAGE, CLASSLABEL, DIAGNOSISMAP } from '../utils/utilities/classification.js';
 
 const ResultDetailPage = ({ authedUser }) => {
   const { sessionId } = useParams();
@@ -97,7 +97,7 @@ const ResultDetailPage = ({ authedUser }) => {
           ].map(({ label, content }) => (
             <div
               key={label}
-              className="bg-surface-container dark:bg-inverse-surface rounded p-md"
+              className="bg-surface-container dark:bg-inverse-surface rounded p-md flex flex-col items-start justify-start"
             >
               <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface uppercase tracking-widest mb-xs">{label}</p>
               {content}
@@ -113,80 +113,98 @@ const ResultDetailPage = ({ authedUser }) => {
               key={label}
               className="border border-outline rounded-lg overflow-hidden"
             >
-              <div className="bg-surface-container-low px-md py-xs border-b border-outline">
-                <p className="text-label-bold font-label-bold text-primary uppercase tracking-widest py-2">{label}</p>
+              <div className="bg-surface-container-low dark:bg-inverse-surface px-md py-xs border-b border-outline">
+                <p className="text-label-bold font-label-bold text-primary dark:text-inverse-primary uppercase tracking-widest py-2">{label}</p>
               </div>
-              <div className="p-md flex items-center justify-center bg-surface-dim">
+              <div className="p-md flex items-center justify-center bg-surface-dim dark:bg-gray-900 h-full">
                 <img
                   src={src ?? ''}
                   alt={alt}
-                  className="max-h-40 object-contain"
+                  className="max-h-40 object-contain pb-8"
                 />
               </div>
             </div>
           ))}
         </div>
         <div className="border border-outline rounded-lg overflow-hidden mb-lg">
-          <div className="bg-surface-container-low px-md py-xs border-b border-outline flex items-center gap-sm">
-            <p className="text-label-bold font-label-bold text-primary uppercase tracking-widest py-2">Classification Result</p>
+          <div className="bg-surface-container-low dark:bg-inverse-surface px-md py-xs border-b border-outline flex items-center gap-sm">
+            <p className="text-label-bold font-label-bold text-primary dark:text-inverse-primary uppercase tracking-widest py-2">Classification Result</p>
           </div>
-          <div className="grid grid-cols-3 gap-md p-md">
-            <div>
-              <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface mb-xs">Diagnosis</p>
-              <BodyText>{CLASSLABEL[classification.diagnosis] ?? 'Not found'}</BodyText>
-            </div>
-            <div>
-              <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface mb-xs">Confidence</p>
-              <BodyText>{(classification.confidence * 100).toFixed(2)}%</BodyText>
-              <div className="h-1 bg-outline-variant rounded-full mt-xs overflow-hidden">
-                <div
-                  className="h-full bg-primary rounded-full"
-                  style={{ width: `${(classification.confidence * 100).toFixed(0)}%` }}
-                />
+          <div className="grid grid-rows-[auto_auto] gap-lg p-md max-w-150 ">
+            <div className='grid grid-cols-3 gap-xl px-lg'>
+              <div>
+                <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface mb-xs">Diagnosis</p>
+                <BodyText>{CLASSLABEL[classification.diagnosis] ?? 'Not found'}</BodyText>
+              </div>
+              <div>
+                <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface mb-xs">Confidence</p>
+                <BodyText>{(classification.confidence * 100).toFixed(2)}%</BodyText>
+                <div className="h-1 bg-outline-variant rounded-full mt-xs overflow-hidden">
+                  <div
+                    className="h-full bg-primary rounded-full"
+                    style={{ width: `${(classification.confidence * 100).toFixed(0)}%` }}
+                  />
+                </div>
+              </div>
+              <div className='flex justify-center items-center'>
+                <div className="flex flex-col">
+                  <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface mb-xs">Risk Level</p>
+                  <BodyText>{classification.riskLevel ? classification.riskLevel[0].toUpperCase() + classification.riskLevel.slice(1) : 'Not found'}</BodyText>
+                </div>
               </div>
             </div>
-            <div>
-              <p className="text-label-bold font-label-bold text-on-surface-variant dark:text-inverse-on-surface mb-xs">Risk Level</p>
-              <BodyText>{classification.riskLevel ?? 'Not found'}</BodyText>
+            <div className='flex flex-col items-start justify-start px-lg'>
+              <BodyText>{`"${DIAGNOSISMAP[classification.diagnosis] ?? 'Not found'}"`}</BodyText>
             </div>
           </div>
         </div>
       </div>
-      <div className={`fixed bottom-0 right-0 flex ${chatOpened ? 'flex-col' : 'items-start justify-center'} gap-sm ${chatOpened ? 'w-70 h-auto lg:w-100 lg:h-100' : 'w-30'} border border-outline bg-surface dark:bg-inverse-surface transition-all`}>
-        {!chatOpened && (
-          <div
-            className='flex items-center justify-center gap-sm py-1 text-on-surface-variant dark:text-inverse-on-surface'
-            onClick={toggleChat}
-          >
-            <FaBrain />
-            <BodyText>Alit Chatbot</BodyText>
+      <div className={`fixed bottom-0 right-0 flex flex-col border border-outline rounded-tl-lg overflow-hidden bg-surface dark:bg-gray-800 transition-all duration-300 shadow-lg ${chatOpened ? 'w-70 h-100 lg:w-100 lg:h-100' : 'w-36 h-auto'}`}>
+
+        {/* Header — always visible, toggles open/close */}
+        <div
+          onClick={toggleChat}
+          className="bg-primary px-md py-sm flex items-center justify-between cursor-pointer shrink-0"
+        >
+          <div className="flex items-center gap-sm">
+            <div className="w-7 h-7 rounded-full bg-white/15 flex items-center justify-center">
+              <FaBrain className="text-on-primary text-xs" />
+            </div>
+            {chatOpened && (
+              <div>
+                <p className="text-label-bold font-label-bold text-on-primary">Alit Chatbot</p>
+                <p className="text-label-md font-label-md text-on-primary opacity-60">AI Assistant</p>
+              </div>
+            )}
+            {!chatOpened && (
+              <p className="text-label-bold font-label-bold text-on-primary">Alit</p>
+            )}
           </div>
-        )}
+          <FaCircleChevronRight className={`text-on-primary opacity-70 transition-transform duration-300 ${chatOpened ? 'rotate-90' : '-rotate-90'}`} />
+        </div>
+
+        {/* Messages */}
         {chatOpened && (
           <>
-            <div
-              onClick={toggleChat}
-              className="px-3 py-1 mb-auto w-full flex items-center justify-start gap-lg border-b border-outline"
-            >
-              <FaBrain />
-              <BodyText>Alit Chatbot</BodyText>
-            </div>
-            <section className='flex-1 w-full'>
+            <section className="flex-1 overflow-hidden">
               <MessageContainer messages={messages} />
             </section>
+
+            {/* Input */}
             <form
-              className='flex justify-center items-start bg-surface dark:bg-inverse-surface'
               onSubmit={askAgent}
+              className="flex items-center gap-xs p-xs border-t border-outline bg-surface-container dark:bg-inverse-surface shrink-0"
             >
               <input
                 type="text"
                 value={chat}
                 onChange={onChatChange}
                 disabled={chatLoading}
-                className='border-t border-outline p-2 flex-1'
+                placeholder="Ask about your diagnosis…"
+                className="flex-1 text-body-sm px-sm py-xs h-full rounded border border-outline bg-surface text-on-surface dark:bg-gray-900 dark:text-inverse-on-surface focus:outline-none focus:border-primary"
               />
               <Button
-                className='rounded-none h-full py-4 lg:py-2'
+                className="rounded w-8 h-8 shrink-0 flex items-center justify-center p-0"
                 disabled={chatLoading}
                 loading={chatLoading}
                 onClick={askAgent}
