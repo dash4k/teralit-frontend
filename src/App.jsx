@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { matchPath, Route, Routes, useLocation } from 'react-router-dom';
 
 import PageFooter from './components/PageFooter';
 import Navigation from './components/Navigation';
@@ -30,6 +30,7 @@ import NewScanPage from './pages/NewScanPage.jsx';
 import ResultDetailPage from './pages/ResultDetailPage.jsx';
 import ResultsPage from './pages/ResultsPage.jsx';
 import LandingPage from './pages/LandingPage.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
 
 import ThemeContext from './contexts/ThemeContext.js';
 
@@ -44,6 +45,20 @@ function App() {
   const location = useLocation();
   const dashboardRoutes = ['/new', '/results', '/profile'];
   const onDashboard = dashboardRoutes.some((path) => location.pathname.startsWith(path));
+
+  const validRoutes = [
+    '/',
+    '/login',
+    '/register',
+    '/check-email',
+    '/verify-email',
+    '/resend-verification-email',
+    '/new',
+    '/results',
+    '/results/:sessionId',
+    '/profile',
+  ];
+  const onValidRoutes = validRoutes.some((path) => matchPath({ path, end: true }, location.pathname));
 
   const setVisibilityFalse = () => {
     setSettingsVisibility(false);
@@ -121,6 +136,7 @@ function App() {
           collapsed={collapsed}
           setCollapsed={setCollapsed}
           onDashboard={onDashboard}
+          onValidRoutes={onValidRoutes}
         />
         <main className={`flex-1 w-full ${onDashboard ? (collapsed ? 'lg:ml-10 lg:w-auto' : 'lg:ml-60 lg:w-auto') : ''} ${onDashboard ? 'mt-15 mb-15' : ''} transition-all duration-300`}>
           <Routes>
@@ -182,6 +198,10 @@ function App() {
                   />
                 </ProtectedRoute>
               }
+            />
+            <Route
+              path='*'
+              element={<NotFoundPage />}
             />
           </Routes>
         </main>
