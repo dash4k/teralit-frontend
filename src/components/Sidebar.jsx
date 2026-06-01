@@ -79,15 +79,11 @@ const Sidebar = ({
           >
             <div className="flex flex-row items-center justify-start gap-md p-4">
               <div className="w-6 h-6 p-4 rounded-full bg-primary flex items-center justify-center text-on-primary dark:text-primary dark:bg-inverse-primary font-headline-md text-headline-md shrink-0">
-                {authedUser.name?.charAt(0).toUpperCase()}
+                {authedUser?.name?.charAt(0).toUpperCase()}
               </div>
-              <div className="flex flex-col items-start justify-center gap-sm">
-                <BodyText className="whitespace-nowrap">
-                  {authedUser?.name}
-                </BodyText>
-                <p className="text-label-bold font-label-bold whitespace-nowrap">
-                  {authedUser?.email}
-                </p>
+              <div className="flex flex-col items-start justify-center gap-sm min-w-0 w-full">
+                <BodyText className="truncate w-full">{authedUser?.name}</BodyText>
+                <p className="text-label-bold font-label-bold truncate w-full">{authedUser?.email}</p>
               </div>
             </div>
           </div>
@@ -168,11 +164,11 @@ const Sidebar = ({
             >
               <div className="flex flex-row items-center justify-start gap-lg p-4">
                 <div className="w-6 h-6 p-4 rounded-full bg-primary flex items-center justify-center text-on-primary dark:text-primary dark:bg-inverse-primary font-headline-md text-headline-md shrink-0">
-                  {authedUser.name?.charAt(0).toUpperCase()}
+                  {authedUser?.name?.charAt(0).toUpperCase()}
                 </div>
-                <div className="flex flex-col items-start justify-center gap-sm">
-                  <BodyText>{authedUser?.name}</BodyText>
-                  <p className="text-label-bold font-label-bold">{authedUser?.email}</p>
+                <div className="flex flex-col items-start justify-center gap-sm min-w-0 w-full">
+                  <BodyText className="truncate w-full">{authedUser?.name}</BodyText>
+                  <p className="text-label-bold font-label-bold truncate w-full">{authedUser?.email}</p>
                 </div>
               </div>
             </div>
