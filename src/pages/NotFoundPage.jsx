@@ -1,5 +1,5 @@
 import { useNavigate, Link } from 'react-router-dom';
-import { FaCamera, FaClipboardList, FaHouse, FaX, FaChevronRight } from 'react-icons/fa6';
+import { FaCamera, FaClipboardList, FaHouse, FaChevronRight } from 'react-icons/fa6';
 import Heading from '../components/Heading.jsx';
 import BodyText from '../components/BodyText.jsx';
 import Logo from '../components/Logo.jsx';
@@ -17,7 +17,7 @@ const NotFoundPage = () => {
     <section className="w-full min-h-dvh px-container-margin mx-auto flex flex-col items-center justify-center">
       <div className="w-full max-w-100 flex flex-col items-center text-center gap-lg">
         <Link to='/'>
-            <Logo />
+          <Logo />
         </Link>
         <div>
           <p className="text-display font-display text-primary dark:text-inverse-primary" style={{ letterSpacing: '-0.04em' }}>404</p>
@@ -47,7 +47,7 @@ const NotFoundPage = () => {
                   <p className="text-label-md font-label-md text-on-surface-variant dark:text-inverse-on-surface">{desc}</p>
                 </div>
                 <span className="text-on-surface-variant dark:text-inverse-on-surface">
-                    <FaChevronRight />
+                  <FaChevronRight />
                 </span>
               </button>
             ))}
