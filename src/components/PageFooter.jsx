@@ -33,7 +33,7 @@ const PageFooter = ({ onDashboard }) => {
               </li>
               <li>
                 <Link
-                  to=''
+                  to='https://github.com/satriosukacoding/AI-Teralit'
                   target="_blank"
                   rel="noopener noreferrer"
                 >
@@ -42,7 +42,7 @@ const PageFooter = ({ onDashboard }) => {
               </li>
               <li>
                 <Link
-                  to='https://github.com/dash4k/teralit-model-test'
+                  to='https://henoch10-teraliteskin.hf.space/'
                   target="_blank"
                   rel="noopener noreferrer"
                 >
