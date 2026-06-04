@@ -184,7 +184,7 @@ function App() {
               path='/results/:sessionId'
               element={
                 <ProtectedRoute authedUser={authedUser}>
-                  <ResultDetailPage authedUser={authedUser} />
+                  <ResultDetailPage />
                 </ProtectedRoute>
               }
             />
