@@ -1,13 +1,12 @@
 # Teralit Frontend
 
-A modern React + Vite frontend application with Tailwind CSS, TypeScript, and ESLint.
+A modern React + Vite frontend application with Tailwind CSS and ESLint.
 
 ## Tech Stack
 
 - **React** 19.2.6 - A JavaScript library for building user interfaces
 - **Vite** 8.0.12 - Next generation frontend tooling for faster development
 - **Tailwind CSS** 4.3.0 - Utility-first CSS framework
-- **TypeScript** - Type-safe JavaScript
 - **React Router** 7.15.1 - Client-side routing
 - **React Hot Toast** 2.6.0 - Notifications
 - **React Icons** 5.6.0 - Icon library
