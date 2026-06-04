@@ -104,7 +104,7 @@ const LoginPage = ({ loginSuccess }) => {
       </div>
       <aside className="hidden md:flex w-1/2 h-full bg-secondary">
         <img
-          src="./authpage.svg"
+          src="./authpage.jpeg"
           alt="Graphic"
           className='w-full h-full object-cover'
         />
