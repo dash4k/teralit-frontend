@@ -14,7 +14,7 @@ import MessageContainer from '../components/MessagesContainer.jsx';
 import { agentAnswer, listMessages } from '../utils/api/message.js';
 import { CLASSIMAGE, CLASSLABEL, DIAGNOSISMAP } from '../utils/utilities/classification.js';
 
-const ResultDetailPage = ({ authedUser }) => {
+const ResultDetailPage = () => {
   const navigate = useNavigate();
   const { sessionId } = useParams();
   if (!sessionId) return null;
@@ -68,7 +68,7 @@ const ResultDetailPage = ({ authedUser }) => {
         if (fetchedMessages.length === 0) {
           setMessages([{
             role: 'agent',
-            content: `Hello ${authedUser.name}! How can i help you today?`,
+            content: 'Hello! How can i help you today?',
           }]);
         } else {
           setMessages(fetchedMessages);
