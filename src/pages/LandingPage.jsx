@@ -30,9 +30,6 @@ const LandingPage = () => {
     <section className="w-full max-w-dvh min-h-dvh px-container-margin mx-auto flex flex-col items-center">
       <div className="w-full flex flex-col">
         <div className="flex flex-col items-center text-center py-xxl gap-lg">
-          <span className="inline-flex items-center gap-xs bg-surface-container-low border border-primary-fixed-dim rounded-full px-md py-xs text-label-bold font-label-bold text-primary uppercase tracking-widest">
-            AI-powered skin analysis
-          </span>
           <div className="flex flex-col gap-sm">
             <Heading>Skin health insights, in seconds</Heading>
             <BodyText>
