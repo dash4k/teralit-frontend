@@ -17,8 +17,8 @@ export const createSession = async () => {
   return { error: false, sessionId: responseJson.data.id };
 };
 
-export const listSessions = async () => {
-  const response = await fetchWithToken(`${BASE_URL}/sessions`, {
+export const listSessions = async ({ page, limit }) => {
+  const response = await fetchWithToken(`${BASE_URL}/sessions?page=${page}&limit=${limit}`, {
     method: 'GET',
   });
 
@@ -26,7 +26,7 @@ export const listSessions = async () => {
 
   if (responseJson.status !== 'success') throw new Error(responseJson.message);
 
-  return { error: false, sessions: responseJson.data.sessions };
+  return { error: false, data: responseJson.data };
 };
 
 export const viewSession = async ({ id }) => {
