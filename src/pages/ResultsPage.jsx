@@ -12,8 +12,6 @@ const ResultsPage = () => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [disablePrev, setDisablePrev] = useState(false);
-  const [disableNext, setDisableNext] = useState(false);
   const limit = 5;
 
   const nextPage = () => setPage((prev) => prev + 1);
@@ -30,11 +28,7 @@ const ResultsPage = () => {
       } catch (error) {
         toast.error(error?.message ?? 'Error while trying to load data');
       } finally {
-        setDisablePrev(false);
-        setDisableNext(false);
         setLoading(false);
-        if (page === 1) setDisablePrev(true);
-        if (page >= totalPages) setDisableNext(true);
       }
     };
 
@@ -67,7 +61,7 @@ const ResultsPage = () => {
         <div className="flex flex-row justify-end items-center w-full h-auto gap-2">
           <Button
             onClick={prevPage}
-            disabled={disablePrev}
+            disabled={page === 1}
             variant='outlined'
             startIcon={<FaChevronLeft />}
           >
@@ -75,7 +69,7 @@ const ResultsPage = () => {
           </Button>
           <Button
             onClick={nextPage}
-            disabled={disableNext}
+            disabled={page === totalPages}
             endIcon={<FaChevronRight />}
           >
             Next
